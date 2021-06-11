@@ -48,12 +48,12 @@ public class PlayerController : MonoBehaviour
 
     public void MoveLeft(float deltaTime)
     {
-        _rigidbody.velocity = new Vector2((_playerSpeed * deltaTime * Vector2.left).x, _rigidbody.velocity.y);
+        _rigidbody.velocity = new Vector2((_playerSpeed * Vector2.left).x, _rigidbody.velocity.y);
     }
 
     public void MoveRight(float deltaTime)
     {
-        _rigidbody.velocity = new Vector2((_playerSpeed * deltaTime * Vector2.right).x, _rigidbody.velocity.y);
+        _rigidbody.velocity = new Vector2((_playerSpeed * Vector2.right).x, _rigidbody.velocity.y);
     }
 
     public void Jump()

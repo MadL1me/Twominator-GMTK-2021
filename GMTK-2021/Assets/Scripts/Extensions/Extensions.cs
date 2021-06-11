@@ -11,5 +11,10 @@ namespace Extensions
                 rigidbody.transform.position.x + addedPosition.x,
                 rigidbody.transform.position.y + addedPosition.y));
         }
+
+        public static void SetAlpha(this SpriteRenderer sprite, float alpha)
+        {
+            sprite.color = new Color(sprite.color.a, sprite.color.b, sprite.color.g, alpha);
+        }
     }
 }

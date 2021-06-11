@@ -27,7 +27,7 @@ namespace Levels
 
         public void SavePlayerCommand(PlayerCommand command)
         {
-            print("SAVE PLAYER COMAND");
+            //print("SAVE PLAYER COMAND");
             
             if (IsCurrentLevelPlaying)
                 command.Execute();
