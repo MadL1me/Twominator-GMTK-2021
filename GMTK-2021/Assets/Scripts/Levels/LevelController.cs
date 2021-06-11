@@ -7,12 +7,16 @@ using UnityEngine;
 public class LevelController : MonoBehaviour
 {
     public PlayerController Player;
+    public PlaybackDummy PlayerDummy;
     public int StartingLevel;
     public GameLevel[] Levels;
     public float TransitionDuration = 0.75F;
     private int _currentLevel = -1;
     private int _pastLevel = -1;
     private bool _isTransitioning;
+
+    public GameLevel CurrentLevel => Levels[_currentLevel];
+    public GameLevel PastLevel => Levels[_pastLevel];
 
     private void Start()
     {
@@ -30,6 +34,7 @@ public class LevelController : MonoBehaviour
 
     public void TransitionToNextLevel()
     {
+        Player.ReassignToLevel(Levels[_currentLevel + 1]);
         TransitionToLevel(_currentLevel + 1);
     }
 
@@ -133,7 +138,12 @@ public class LevelController : MonoBehaviour
             _pastLevel -= 1;
             _currentLevel = nextLevelId;
         }
-
+        
+        CurrentLevel.AssignObjectAndSpawnAtStart(Player.gameObject);
+        
+        if (_pastLevel != -1)
+            PlayerDummy.RespawnDummy();
+        
         Player.gameObject.SetActive(true);
         _isTransitioning = false;
     }

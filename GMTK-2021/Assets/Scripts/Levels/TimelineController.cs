@@ -1,54 +1,49 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Player;
+using UnityEngine;
 
 namespace Levels
 {
     public class TimelineController
     {
-        public Dictionary<float, List<PlayerCommand>> TimeToPlayerCommandExecuted { get; private set; }
-            = new Dictionary<float, List<PlayerCommand>>(); 
-        
-        public float CurrentTimestep { get; private set; }
-        
-        private Queue<(float, List<PlayerCommand>)> _repeatCommandsQueue;
+        public int CurrentTick;
+        private Queue<PlayerCommand> _commands = new Queue<PlayerCommand>();
 
         public void ReloadTimeline()
         {
-            foreach (var playerCommandInTime in TimeToPlayerCommandExecuted)
-                _repeatCommandsQueue.Enqueue((playerCommandInTime.Key, playerCommandInTime.Value));
-            
-            CurrentTimestep = 0;
+            CurrentTick = 0;
         }
-        
-        public void UpdateState(float timeAdd, bool executePlayerCommands = false)
+
+        public IEnumerable<PlayerCommand> GetPlaybackForCurrentTickAndAdvance()
         {
-            CurrentTimestep += timeAdd;
-
-            if (!executePlayerCommands)
-                return;
-
-            if (_repeatCommandsQueue.Peek().Item1 <= CurrentTimestep)
+            while (_commands.Count > 0)
             {
-                var executingCommands = _repeatCommandsQueue.Dequeue();
-                foreach (var command in executingCommands.Item2)
-                {
-                    command.Execute();
-                }
+                var cmd = _commands.Peek();
+                
+                if (cmd.Tick != CurrentTick)
+                    break;
+
+                yield return _commands.Dequeue();
             }
+
+            CurrentTick++;
         }
 
-        public void SaveCommand(PlayerCommand command)
+        public void SaveCommand(PlayerCommands command)
         {
-            if (!TimeToPlayerCommandExecuted.ContainsKey(CurrentTimestep))
-                TimeToPlayerCommandExecuted.Add(CurrentTimestep, new List<PlayerCommand>());
-            
-            TimeToPlayerCommandExecuted[CurrentTimestep].Add(command);
+            _commands.Enqueue(new PlayerCommand { Tick = CurrentTick, Type = command });
+        }
+
+        public void AdvanceTick()
+        {
+            CurrentTick++;
         }
         
         public void ClearTimeline()
         {
-            TimeToPlayerCommandExecuted.Clear();
+            _commands.Clear();
+            CurrentTick = 0;
         }
     }
 }

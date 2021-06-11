@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Player;
 using UnityEngine;
 
@@ -8,7 +9,11 @@ namespace Levels
     {
         public bool IsCurrentLevelPlaying { get; set; } = true;
 
+        public GameObject PlayerStart;
+
         private TimelineController _timelineController = new TimelineController();
+
+        public TimelineController Timeline => _timelineController;
         
         private void Start()
         {
@@ -25,19 +30,20 @@ namespace Levels
             _timelineController.ReloadTimeline();
         }
 
-        public void SavePlayerCommand(PlayerCommand command)
+        public void SavePlayerCommand(PlayerCommands command)
         {
-            print("SAVE PLAYER COMAND");
-            
-            if (IsCurrentLevelPlaying)
-                command.Execute();
-
             _timelineController.SaveCommand(command);
         }
 
-        public void UpdateGameLevel(float deltaTime)
+        public void FinalizeSavedFrame()
         {
-            _timelineController.UpdateState(deltaTime);
+            _timelineController.AdvanceTick();
+        }
+
+        public void AssignObjectAndSpawnAtStart(GameObject gameObject)
+        {
+            gameObject.transform.SetParent(transform);
+            gameObject.transform.localPosition = PlayerStart.transform.localPosition;
         }
 
         public void ActivateLevel()

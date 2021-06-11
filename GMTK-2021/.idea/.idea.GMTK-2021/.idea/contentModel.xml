@@ -19,10 +19,16 @@
             <e p="TimelineController.cs" t="Include" />
             <e p="TwoLevelsJoinedController.cs" t="Include" />
           </e>
+          <e p="LogicalElements" t="Include">
+            <e p="ActivatableElement.cs" t="Include" />
+            <e p="Button.cs" t="Include" />
+            <e p="ColorEnum.cs" t="Include" />
+          </e>
           <e p="Player" t="Include">
             <e p="Commands" t="Include">
               <e p="PlayerCommands.cs" t="Include" />
             </e>
+            <e p="PlaybackDummy.cs" t="Include" />
             <e p="PlayerController.cs" t="Include" />
           </e>
         </e>
