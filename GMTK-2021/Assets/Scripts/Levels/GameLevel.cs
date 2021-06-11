@@ -17,6 +17,8 @@ namespace Levels
         private ActivatableElement[] _levelActivatables;
         private ActivatableElementState[] _levelStates;
         
+        public ActivatableElement[] GetAllActivatableElements() => _levelActivatables;
+        
         private void Awake()
         {
             SaveLevelInitialState();

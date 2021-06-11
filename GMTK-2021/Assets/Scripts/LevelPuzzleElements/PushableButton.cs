@@ -4,13 +4,16 @@ using UnityEngine;
 
 namespace LogicalElements
 {
-    [RequireComponent(typeof(Collider2D))]
-    public class SwitchButton : ActivatableElement
+    public class PushableButton : ActivatorElements
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
-            print("TRIGGER");
-            Switch();
+            Activate();
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            Deactivate();
         }
 
         public override void Activate()
@@ -18,7 +21,7 @@ namespace LogicalElements
             base.Activate();
             _sprite.SetAlpha(1);
         }
-       
+        
         public override void Deactivate()
         {
             base.Deactivate();
