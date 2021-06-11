@@ -6,12 +6,12 @@ namespace Levels
 {
     public class TimelineController
     {
-        public Dictionary<float, PlayerCommand> TimeToPlayerCommandExecuted { get; private set; }
-            = new Dictionary<float, PlayerCommand>(); 
+        public Dictionary<float, List<PlayerCommand>> TimeToPlayerCommandExecuted { get; private set; }
+            = new Dictionary<float, List<PlayerCommand>>(); 
         
         public float CurrentTimestep { get; private set; }
         
-        private Queue<(float, PlayerCommand)> _repeatCommandsQueue;
+        private Queue<(float, List<PlayerCommand>)> _repeatCommandsQueue;
 
         public void ReloadTimeline()
         {
@@ -29,17 +29,26 @@ namespace Levels
                 return;
 
             if (_repeatCommandsQueue.Peek().Item1 <= CurrentTimestep)
-                _repeatCommandsQueue.Dequeue();
+            {
+                var executingCommands = _repeatCommandsQueue.Dequeue();
+                foreach (var command in executingCommands.Item2)
+                {
+                    command.Execute();
+                }
+            }
         }
 
         public void SaveCommand(PlayerCommand command)
         {
-            TimeToPlayerCommandExecuted.Add(CurrentTimestep, command);
+            if (!TimeToPlayerCommandExecuted.ContainsKey(CurrentTimestep))
+                TimeToPlayerCommandExecuted.Add(CurrentTimestep, new List<PlayerCommand>());
+            
+            TimeToPlayerCommandExecuted[CurrentTimestep].Add(command);
         }
         
         public void ClearTimeline()
         {
-            TimeToPlayerCommandExecuted .Clear();
+            TimeToPlayerCommandExecuted.Clear();
         }
     }
 }

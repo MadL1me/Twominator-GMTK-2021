@@ -24,30 +24,36 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        _levelAttachedToPlayer.UpdateGameLevel(Time.deltaTime);
+        
         if (!IsControllable)
             return;
         
         if (Input.GetKey(KeyCode.A))
             _levelAttachedToPlayer.SavePlayerCommand(new PlayerMoveLeftPlayerCommand(this, Time.deltaTime));
-        if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D))
             _levelAttachedToPlayer.SavePlayerCommand(new PlayerMoveRightPlayerCommand(this, Time.deltaTime));
+
         if (Input.GetKeyDown(KeyCode.Space) && OnGround())
+        {
+            print("JUMP CONFIRMED");            
             _levelAttachedToPlayer.SavePlayerCommand(new PlayerJumpCommand(this));
+        }
     }
 
     private bool OnGround()
     {
-        return  Physics2D.Raycast(transform.position, Vector2.down, _downRaycastDistance);
+        return Physics2D.Raycast(transform.position, Vector2.down, _downRaycastDistance);
     }
 
     public void MoveLeft(float deltaTime)
     {
-        _rigidbody.AddPosition(_playerSpeed * deltaTime * Vector2.left);
+        _rigidbody.velocity = new Vector2((_playerSpeed * deltaTime * Vector2.left).x, _rigidbody.velocity.y);
     }
 
     public void MoveRight(float deltaTime)
     {
-        _rigidbody.AddPosition(_playerSpeed * deltaTime * Vector2.right);
+        _rigidbody.velocity = new Vector2((_playerSpeed * deltaTime * Vector2.right).x, _rigidbody.velocity.y);
     }
 
     public void Jump()
