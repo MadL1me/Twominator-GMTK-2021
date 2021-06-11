@@ -35,9 +35,9 @@ namespace Levels
             _timelineController.SaveCommand(command);
         }
 
-        public void Update()
+        public void UpdateGameLevel(float deltaTime)
         {
-            _timelineController.UpdateState(Time.deltaTime);
+            _timelineController.UpdateState(deltaTime);
         }
 
         public void ActivateLevel()

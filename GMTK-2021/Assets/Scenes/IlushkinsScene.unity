@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 269770781}
   - component: {fileID: 269770780}
   - component: {fileID: 269770779}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,8 +222,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelAttachedToPlayer: {fileID: 1372052297}
-  _jumpForce: 1
-  _playerSpeed: 1
+  _jumpForce: 300
+  _playerSpeed: 150
+  _downRaycastDistance: 1
 --- !u!50 &269770780
 Rigidbody2D:
   serializedVersion: 4
@@ -244,7 +245,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &269770781
 BoxCollider2D:
   m_ObjectHideFlags: 0
