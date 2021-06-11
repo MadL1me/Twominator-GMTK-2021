@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using LogicalElements;
 using Player;
 using UnityEngine;
 
@@ -9,26 +11,42 @@ namespace Levels
         public bool IsCurrentLevelPlaying { get; set; } = true;
 
         private TimelineController _timelineController = new TimelineController();
+        private PlayerController _playerController;
+        private ActivatableElement[] _levelActivatables;
+        private ActivatableElementState[] _levelStates;
+        private Vector3 _playerStartPosition;
+        
+        private void Awake()
+        {
+            _playerController = GetComponentInChildren<PlayerController>();
+            SaveLevelInitialState();
+        }
         
         private void Start()
         {
-            SaveGameLevelStartingState();
+            SaveLevelInitialState();
         }
 
-        private void SaveGameLevelStartingState()
+        public void SaveLevelInitialState()
         {
-            // saving starting state
+            _playerStartPosition = _playerController.transform.position;
+            _levelActivatables = GetComponentsInChildren<ActivatableElement>();
+            _levelStates = new ActivatableElementState[_levelActivatables.Length];
+
+            for (int i = 0; i<_levelActivatables.Length; i++)
+                _levelStates[i] = _levelActivatables[i].GetState();
         }
 
-        public void RestartLevel()
+        public void LoadLevelInitialState()
         {
-            _timelineController.ReloadTimeline();
+            _playerController.transform.position = _playerStartPosition;
+
+            for (int i = 0; i<_levelActivatables.Length; i++)
+                _levelActivatables[i].SetState(_levelStates[i]);
         }
 
         public void SavePlayerCommand(PlayerCommand command)
         {
-            //print("SAVE PLAYER COMAND");
-            
             if (IsCurrentLevelPlaying)
                 command.Execute();
 
@@ -40,9 +58,16 @@ namespace Levels
             _timelineController.UpdateState(deltaTime);
         }
 
-        public void ActivateLevel()
+        public void LoadLevelForPlaying()
         {
-            
+            LoadLevelInitialState();
+            _timelineController.ReloadTimeline();
+        }
+
+        public void LoadLevelForRepeat()
+        {
+            LoadLevelInitialState();
+            _timelineController.ClearTimeline();
         }
     }
 }

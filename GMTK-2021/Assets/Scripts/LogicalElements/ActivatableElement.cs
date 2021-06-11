@@ -37,6 +37,19 @@ namespace LogicalElements
             
         }
 
+        public void SetState(ActivatableElementState state)
+        {
+            IsActive = state.IsActive;
+        }
+
+        public ActivatableElementState GetState()
+        {
+            return new ActivatableElementState
+            {
+                IsActive = IsActive
+            };
+        }
+        
         public virtual void Switch()
         {
             if (IsActive)

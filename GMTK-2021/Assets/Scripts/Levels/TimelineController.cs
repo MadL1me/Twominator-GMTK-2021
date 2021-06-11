@@ -48,6 +48,7 @@ namespace Levels
         
         public void ClearTimeline()
         {
+            CurrentTimestep = 0;
             TimeToPlayerCommandExecuted.Clear();
         }
     }
