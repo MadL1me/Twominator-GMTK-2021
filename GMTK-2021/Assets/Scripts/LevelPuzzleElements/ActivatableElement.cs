@@ -6,6 +6,9 @@ namespace LogicalElements
 {
     public abstract class ActivatableElement : MonoBehaviour
     {
+        public event Action OnActivated;
+        public event Action OnDeactivated;
+        
         public ColorEnum ColorEnum 
         {
             get => _colorEnum;
@@ -15,7 +18,7 @@ namespace LogicalElements
                 _sprite.color = value.Color;
             } 
         }
-        
+
         public bool IsActive
         {
             get => _isActive;
@@ -25,18 +28,10 @@ namespace LogicalElements
             } 
         }
         
-        public List<ActivatableElement> ConnectedActivatableElements => _activatableElements;
-
-        [SerializeField] protected List<ActivatableElement> _activatableElements;
         [SerializeField] protected ColorEnum _colorEnum;
         [SerializeField] protected SpriteRenderer _sprite;
         [SerializeField] protected bool _isActive;
         
-        protected virtual void Awake()
-        {
-            
-        }
-
         public void SetState(ActivatableElementState state)
         {
             IsActive = state.IsActive;
@@ -61,21 +56,13 @@ namespace LogicalElements
         public virtual void Activate()
         {
             IsActive = true;
-            
-            foreach (var connectedActivatableElement in ConnectedActivatableElements)
-            {
-                connectedActivatableElement.Activate();
-            }
+            OnActivated?.Invoke();
         }
 
         public virtual void Deactivate()
         {
             IsActive = false;
-            
-            foreach (var connectedActivatableElement in ConnectedActivatableElements)
-            {
-                connectedActivatableElement.Deactivate();
-            }
+            OnDeactivated?.Invoke();
         }
     }
 }

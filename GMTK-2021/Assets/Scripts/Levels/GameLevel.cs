@@ -16,6 +16,8 @@ namespace Levels
         private ActivatableElementState[] _levelStates;
         private Vector3 _playerStartPosition;
         
+        public ActivatableElement[] GetAllActivatableElements() => _levelActivatables;
+        
         private void Awake()
         {
             _playerController = GetComponentInChildren<PlayerController>();
