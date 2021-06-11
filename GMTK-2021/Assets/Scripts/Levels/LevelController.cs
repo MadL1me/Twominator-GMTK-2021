@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Levels;
 using UnityEngine;
 
 public class LevelController : MonoBehaviour
 {
+    public PlayerController Player;
     public int StartingLevel;
-    public GameObject[] Levels;
+    public GameLevel[] Levels;
     public float TransitionDuration = 0.75F;
     private int _currentLevel = -1;
     private int _pastLevel = -1;
@@ -24,6 +26,11 @@ public class LevelController : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.F2) && !_isTransitioning)
             TransitionToLevel(_currentLevel - 1);
+    }
+
+    public void TransitionToNextLevel()
+    {
+        TransitionToLevel(_currentLevel + 1);
     }
 
     public void TransitionToLevel(int levelId, bool skipAnim = false)
@@ -127,6 +134,7 @@ public class LevelController : MonoBehaviour
             _currentLevel = nextLevelId;
         }
 
+        Player.gameObject.SetActive(true);
         _isTransitioning = false;
     }
 }

@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="933229b7-9458-4c77-b300-a091aa3908da" name="Default Changelist" comment="" />
+    <list default="true" id="933229b7-9458-4c77-b300-a091aa3908da" name="Default Changelist" comment="Test scene switch">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GMTK-2021/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GMTK-2021/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GMTK-2021/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GMTK-2021/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GMTK-2021/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GMTK-2021/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GMTK-2021/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GMTK-2021/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/TilemapTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/TilemapTest.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LevelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Levels/LevelController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LevelController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Levels/LevelController.cs.meta" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,9 +18,15 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Levels/Props/Portal.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/Assets/Scripts/LevelController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Levels/GameLevel.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Levels/LevelController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Levels/Props/Portal.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1togRlP4P1xPP7MJ7V7sjEhxYOe" />
@@ -56,8 +70,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1623440849731</updated>
-      <workItem from="1623440865636" duration="3115000" />
+      <workItem from="1623440865636" duration="5026000" />
     </task>
+    <task id="LOCAL-00001" summary="Test scene switch">
+      <created>1623444014598</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1623444014598</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -78,5 +100,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Test scene switch" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test scene switch" />
   </component>
 </project>
