@@ -64,7 +64,6 @@ public class LevelController : MonoBehaviour
         _levelActivatablesController = new LevelActivatablesController(PastLevel, CurrentLevel);
         
         print($"past: {_pastLevel} current: {_currentLevel}");
-        
     }
 
     private void Update()

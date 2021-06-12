@@ -14,7 +14,7 @@ namespace LogicalElements
             _connectedActivatableElements = elements;
         }
         
-        public override void Activate()
+        public override void Activate(bool fireEvent = true)
         {
             foreach (var connectedActivatableElement in ConnectedActivatableElements)
             {
@@ -24,7 +24,7 @@ namespace LogicalElements
             base.Activate();
         }
         
-        public override void Deactivate()
+        public override void Deactivate(bool fireEvent = true)
         {
             foreach (var connectedActivatableElement in ConnectedActivatableElements)
             {

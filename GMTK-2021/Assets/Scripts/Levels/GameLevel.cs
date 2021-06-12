@@ -39,20 +39,26 @@ namespace Levels
 
         public void SaveLevelInitialState()
         {
-           // _positionStateElements = GetComponentInChildren<PositionStateElement>();
+            _positionStateElements = GetComponentsInChildren<PositionStateElement>();
+            _positionStates = new PositionState[_positionStateElements.Length];
+            
             _levelActivatables = GetComponentsInChildren<ActivatableElement>();
             _activatableStates = new ActivatableElementState[_levelActivatables.Length];
             
-           //_positionStates = new PositionState(_positionStateElements);
-
             for (int i = 0; i<_levelActivatables.Length; i++)
                 _activatableStates[i] = _levelActivatables[i].GetState();
+
+            for (int i = 0; i < _positionStateElements.Length; i++)
+                _positionStates[i] = _positionStateElements[i].GetState();
         }
 
         public void LoadLevelInitialState()
         {
             for (int i = 0; i<_levelActivatables.Length; i++) 
                 _levelActivatables[i].SetState(_activatableStates[i]);
+            
+            for (int i = 0; i < _positionStateElements.Length; i++)
+                _positionStateElements[i].SetState(_positionStates[i]);
         }
 
         public void SavePlayerCommand(PlayerCommands command)

@@ -8,7 +8,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class PlayerController : MonoBehaviour
-{ 
+{
+    [SerializeField] private LevelController _levelController;
     [SerializeField] private GameLevel _levelAttachedToPlayer;
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _playerSpeed;
@@ -162,5 +163,10 @@ public class PlayerController : MonoBehaviour
         _playerSpeed = real._playerSpeed;
 
         IsControllable = false;
+    }
+
+    public void Die()
+    {
+        _levelController.ReloadLevel();
     }
 }

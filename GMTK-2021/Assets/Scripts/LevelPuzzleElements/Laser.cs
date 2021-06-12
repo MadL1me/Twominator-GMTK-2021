@@ -4,21 +4,24 @@ using UnityEngine;
 
 namespace LogicalElements
 {
-    [RequireComponent(typeof(Collider2D))]
-    public class SwitchButton : ActivatorElement
+    public class Laser : ListenerElement
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
-            print("TRIGGER");
-            Switch();
+            print("LASER TRIGGER OMFG");
+            
+            if (IsActive && other.gameObject.tag.Equals("Player"))
+            {
+                other.gameObject.GetComponent<PlayerController>().Die();
+            }
         }
-
+        
         public override void Activate(bool fireEvent = true)
         {
             base.Activate(fireEvent);
-            _sprite.SetAlpha(1);
+            _sprite.SetAlpha(1f);
         }
-       
+        
         public override void Deactivate(bool fireEvent = true)
         {
             base.Deactivate(fireEvent);
