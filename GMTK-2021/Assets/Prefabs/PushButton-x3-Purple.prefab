@@ -320,7 +320,7 @@ TilemapRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1720937672}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -453,8 +453,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _colorEnum: {fileID: 11400000, guid: c14f8bcc50a37a94da9c6d538b3fee99, type: 2}
-  _activeTilemap: {fileID: 448312296}
-  _inactiveTilemap: {fileID: 1720937675}
+  _activeTilemap: {fileID: 448312295}
+  _inactiveTilemap: {fileID: 1720937674}
   _isActive: 0
   _connectedActivatableElements: []
 --- !u!61 &7299689600053446279

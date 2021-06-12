@@ -621,8 +621,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _colorEnum: {fileID: 11400000, guid: c14f8bcc50a37a94da9c6d538b3fee99, type: 2}
-  _activeTilemap: {fileID: 328565644}
-  _inactiveTilemap: {fileID: 1592265539}
+  _activeTilemap: {fileID: 328565643}
+  _inactiveTilemap: {fileID: 1592265538}
   _isActive: 1
   _doorCollider: {fileID: 7814939994999382936}
 --- !u!1 &7814939994999382938
