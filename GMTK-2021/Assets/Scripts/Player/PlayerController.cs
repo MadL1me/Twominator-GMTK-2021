@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer _sprite;
     private Animator _anim;
     private Rigidbody2D _rigidbody;
+    private Collider2D _collider;
     private bool[] _captureCmds;
     private bool _isOnGround;
     private bool _ignoreNextStay;
