@@ -14,7 +14,7 @@ namespace Extensions
 
         public static void SetAlpha(this SpriteRenderer sprite, float alpha)
         {
-            sprite.color = new Color(sprite.color.a, sprite.color.b, sprite.color.g, alpha);
+            sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, alpha);
         }
     }
 }

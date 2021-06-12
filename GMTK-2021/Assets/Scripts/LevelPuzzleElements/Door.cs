@@ -1,10 +1,11 @@
-﻿using Extensions;
+﻿using System.Collections.Generic;
+using Extensions;
 using Levels;
 using UnityEngine;
 
 namespace LogicalElements
 {
-    public class Door : ActivatableElement
+    public class Door : ListenerElement
     {
         [SerializeField] private Collider2D _doorCollider;
         
@@ -17,7 +18,7 @@ namespace LogicalElements
         
         public override void Deactivate()
         {
-            base.Activate();
+            base.Deactivate();
             _doorCollider.enabled = false;
             _sprite.SetAlpha(0.3f);
         }

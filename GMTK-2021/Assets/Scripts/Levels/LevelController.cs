@@ -19,9 +19,11 @@ public class LevelController : MonoBehaviour
     private int _pastLevel = -1;
     private bool _isTransitioning;
 
-    public GameLevel CurrentLevel => Levels[_currentLevel];
-    public GameLevel PastLevel => Levels[_pastLevel];
+    public GameLevel CurrentLevel => _currentLevel < Levels.Length ? Levels[_currentLevel] : null;
+    public GameLevel PastLevel => _pastLevel >= 0 ? Levels[_pastLevel] : null;
 
+    private LevelActivatablesController _levelActivatablesController;
+    
     private void Start()
     {
         TransitionToLevel(StartingLevel, true);
@@ -33,48 +35,9 @@ public class LevelController : MonoBehaviour
             PastLevel.LoadLevelInitialState();
         
         CurrentLevel.LoadLevelInitialState();
-        SynchronizeLevelsActivatableElements();
-    }
-
-    public void SynchronizeLevelsActivatableElements()
-    {
-        var allActivators = new List<ActivatorElement>();
-        var allActivatables = new List<ActivatableElement>();
-
-        if (_pastLevel >= 0)
-        {
-            allActivators.AddRange(PastLevel.GetAllLevelActivators.ToList());
-            allActivatables.AddRange(PastLevel.GetAllActivatableExceptActivators.ToList());
-        }
-
-        allActivators.AddRange(CurrentLevel.GetAllLevelActivators);
-        allActivatables.AddRange(CurrentLevel.GetAllActivatableExceptActivators);
-
-        var groupActivatorsByColorEnum = allActivators.GroupBy(activatable => activatable.ColorEnum);
-        var groupActivatablesByColorEnum = allActivatables.GroupBy(activatable => activatable.ColorEnum);
-
-        var colorToActivatable = new Dictionary<ColorEnum, List<ActivatableElement>>();
-
-        foreach (var group in groupActivatablesByColorEnum)
-        {
-            if (!colorToActivatable.ContainsKey(group.Key))
-            {
-                colorToActivatable[group.Key] = new List<ActivatableElement>();
-            }
-
-            foreach (var activatable in group)
-            {
-                colorToActivatable[group.Key].Add(activatable);
-            }
-        }
-
-        foreach (var colorGroup in groupActivatorsByColorEnum)
-        {
-            foreach (var activator in colorGroup)
-            {
-                activator.SetConnectedElements(colorToActivatable[colorGroup.Key].ToArray());
-            }
-        }
+        
+        _levelActivatablesController?.UnSubscribeFromActivatorEvents();
+        _levelActivatablesController = new LevelActivatablesController(PastLevel, CurrentLevel);
     }
 
     private void Update()
