@@ -36,10 +36,16 @@ namespace LogicalElements
         public void SetState(ActivatableElementState state)
         {
             IsActive = state.IsActive;
+                        
+            if (IsActive)
+                Activate();
+            else
+                Deactivate();
         }
 
         public ActivatableElementState GetState()
         {
+            
             return new ActivatableElementState
             {
                 IsActive = IsActive
