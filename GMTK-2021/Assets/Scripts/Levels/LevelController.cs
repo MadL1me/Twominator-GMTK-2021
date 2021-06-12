@@ -14,11 +14,15 @@ public class LevelController : MonoBehaviour
 
     public int StartingLevel;
     public float TransitionDuration = 0.75F;
+    
+    public bool IsDummyCompleted { get; set; }
+    public bool IsPlayerCompleted { get; set; }
 
     private int _currentLevel = -1;
     private int _pastLevel = -1;
     private bool _isTransitioning;
 
+    public bool HasPastLevel => _pastLevel != -1;
     public GameLevel CurrentLevel => _currentLevel < Levels.Length ? Levels[_currentLevel] : null;
     public GameLevel PastLevel => _pastLevel >= 0 ? Levels[_pastLevel] : null;
 
@@ -35,9 +39,62 @@ public class LevelController : MonoBehaviour
             PastLevel.LoadLevelInitialState();
         
         CurrentLevel.LoadLevelInitialState();
+        SynchronizeLevelsActivatableElements();
+        
+        CurrentLevel.AssignObjectAndSpawnAtStart(Player.gameObject);
+
+        if (_pastLevel != -1)
+            PlayerDummy.RespawnDummy();
+        
+        Player.gameObject.SetActive(true);
+        Player.GetComponent<Rigidbody2D>().simulated = true;
+
+        IsDummyCompleted = false;
+        IsPlayerCompleted = false;
         
         _levelActivatablesController?.UnSubscribeFromActivatorEvents();
         _levelActivatablesController = new LevelActivatablesController(PastLevel, CurrentLevel);
+    }
+
+    public void SynchronizeLevelsActivatableElements()
+    {
+        var allActivators = new List<ActivatorElement>();
+        var allActivatables = new List<ActivatableElement>();
+
+        if (_pastLevel >= 0)
+        {
+            allActivators.AddRange(PastLevel.GetAllLevelActivators.ToList());
+            allActivatables.AddRange(PastLevel.GetAllActivatableExceptActivators.ToList());
+        }
+
+        allActivators.AddRange(CurrentLevel.GetAllLevelActivators);
+        allActivatables.AddRange(CurrentLevel.GetAllActivatableExceptActivators);
+
+        var groupActivatorsByColorEnum = allActivators.GroupBy(activatable => activatable.ColorEnum);
+        var groupActivatablesByColorEnum = allActivatables.GroupBy(activatable => activatable.ColorEnum);
+
+        var colorToActivatable = new Dictionary<ColorEnum, List<ActivatableElement>>();
+
+        foreach (var group in groupActivatablesByColorEnum)
+        {
+            if (!colorToActivatable.ContainsKey(group.Key))
+            {
+                colorToActivatable[group.Key] = new List<ActivatableElement>();
+            }
+
+            foreach (var activatable in group)
+            {
+                colorToActivatable[group.Key].Add(activatable);
+            }
+        }
+
+        foreach (var colorGroup in groupActivatorsByColorEnum)
+        {
+            foreach (var activator in colorGroup)
+            {
+                activator.SetConnectedElements(colorToActivatable[colorGroup.Key].ToArray());
+            }
+        }
     }
 
     private void Update()
@@ -58,6 +115,8 @@ public class LevelController : MonoBehaviour
     public void TransitionToLevel(int levelId, bool skipAnim = false)
     {
         _isTransitioning = true;
+        IsDummyCompleted = false;
+        IsPlayerCompleted = false;
         StartCoroutine(PlayTransitionAnimation(levelId, skipAnim));
     }
 
@@ -154,13 +213,7 @@ public class LevelController : MonoBehaviour
             _currentLevel = nextLevelId;
         }
 
-        CurrentLevel.AssignObjectAndSpawnAtStart(Player.gameObject);
-
-        if (_pastLevel != -1)
-            PlayerDummy.RespawnDummy();
-
         ReloadLevel();
-        Player.gameObject.SetActive(true);
         _isTransitioning = false;
     }
 }
