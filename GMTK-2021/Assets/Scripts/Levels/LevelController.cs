@@ -40,9 +40,9 @@ public class LevelController : MonoBehaviour
         
         CurrentLevel.LoadLevelInitialState();
         CurrentLevel.AssignObjectAndSpawnAtStart(Player.gameObject);
+        CurrentLevel.Timeline.ClearTimeline();
 
-        if (_pastLevel != -1)
-            PlayerDummy.RespawnDummy();
+        PlayerDummy.RespawnDummy();
         
         Player.gameObject.SetActive(true);
         Player.GetComponent<Rigidbody2D>().simulated = true;
@@ -52,6 +52,8 @@ public class LevelController : MonoBehaviour
         
         _levelActivatablesController?.UnSubscribeFromActivatorEvents();
         _levelActivatablesController = new LevelActivatablesController(PastLevel, CurrentLevel);
+        
+        print($"past: {_pastLevel} current: {_currentLevel}");
     }
 
     private void Update()
@@ -61,6 +63,14 @@ public class LevelController : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.R) && !_isTransitioning)
             ReloadLevel();
+        
+        #if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.F5))
+            TransitionToNextLevel();
+        
+        if (Input.GetKeyDown(KeyCode.F6))
+            TransitionToPrevLevel();
+        #endif
     }
 
     public void TransitionToNextLevel()
@@ -93,11 +103,16 @@ public class LevelController : MonoBehaviour
             _pastLevel == -1 ? null : Levels[_pastLevel];
         var currentLevel = returnBack ? Levels[_pastLevel] :
             _currentLevel == -1 ? null : Levels[_currentLevel];
-        var futureLevel = returnBack ? Levels[_pastLevel - 1] : Levels[nextLevelId];
+        var futureLevel = returnBack 
+            ? _pastLevel != 0 ? Levels[_pastLevel - 1] : null 
+            : Levels[nextLevelId];
 
-        futureLevel.gameObject.SetActive(true);
+        if (!returnBack || _pastLevel != 0)
+        {
+            futureLevel.gameObject.SetActive(true);
 
-        futureLevel.transform.position = returnBack ? new Vector3(0F, -12F) : new Vector3(0F, 12F);
+            futureLevel.transform.position = returnBack ? new Vector3(0F, -12F) : new Vector3(0F, 12F);
+        }
 
         if (!skipAnim)
         {
@@ -130,10 +145,19 @@ public class LevelController : MonoBehaviour
                 {
                     pastLevel.transform.position =
                         new Vector3(0F, 4F + (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 8F);
-                    currentLevel.transform.position =
-                        new Vector3(0F, -4F + (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 8F);
-                    futureLevel.transform.position =
-                        new Vector3(0F, -12F + (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 8F);
+
+                    if (_pastLevel != 0)
+                    {
+                        currentLevel.transform.position =
+                            new Vector3(0F, -4F + (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 8F);
+                        futureLevel.transform.position =
+                            new Vector3(0F, -12F + (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 8F);
+                    }
+                    else
+                    {
+                        currentLevel.transform.position =
+                            new Vector3(0F, -4F + (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 4F);
+                    }
 
                     yield return null;
                 }
@@ -158,8 +182,16 @@ public class LevelController : MonoBehaviour
         else
         {
             pastLevel.transform.position = new Vector3(0F, 12F);
-            currentLevel.transform.position = new Vector3(0F, 4F);
-            futureLevel.transform.position = new Vector3(0F, -4F);
+
+            if (_pastLevel != 0)
+            {
+                currentLevel.transform.position = new Vector3(0F, 4F);
+                futureLevel.transform.position = new Vector3(0F, -4F);
+            }
+            else
+            {
+                currentLevel.transform.position = new Vector3(0F, 0F);
+            }
         }
 
         if (_pastLevel != -1)
