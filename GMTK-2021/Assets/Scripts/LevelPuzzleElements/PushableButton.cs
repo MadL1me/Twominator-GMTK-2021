@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace LogicalElements
 {
-    public class PushableButton : ActivatorElements
+    public class PushableButton : ActivatorElement
     {
         private void OnTriggerEnter2D(Collider2D other)
         {

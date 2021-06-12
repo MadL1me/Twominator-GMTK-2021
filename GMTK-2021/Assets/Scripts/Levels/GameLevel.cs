@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using LogicalElements;
 using System.Collections.Generic;
+using System.Linq;
 using Player;
 using UnityEngine;
 
@@ -16,15 +17,17 @@ namespace Levels
         private TimelineController _timelineController = new TimelineController();
         private ActivatableElement[] _levelActivatables;
         private ActivatableElementState[] _levelStates;
+
+        public IEnumerable<ActivatableElement> GetAllActivatableElements => _levelActivatables;
+        public IEnumerable<ActivatableElement> GetAllActivatableExceptActivators => _levelActivatables.Except(GetAllLevelActivators);
+        public IEnumerable<ActivatorElement> GetAllLevelActivators => _levelActivatables.OfType<ActivatorElement>().ToList();
         
-        public ActivatableElement[] GetAllActivatableElements() => _levelActivatables;
-        
+        public TimelineController Timeline => _timelineController;
+
         private void Awake()
         {
             SaveLevelInitialState();
         }
-
-        public TimelineController Timeline => _timelineController;
         
         private void Start()
         {

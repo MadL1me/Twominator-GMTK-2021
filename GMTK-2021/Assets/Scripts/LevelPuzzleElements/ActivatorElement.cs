@@ -2,7 +2,7 @@
 
 namespace LogicalElements
 {
-    public class ActivatorElements : ActivatableElement
+    public class ActivatorElement : ActivatableElement
     {
         public ActivatableElement[] ConnectedActivatableElements => _connectedActivatableElements;
         

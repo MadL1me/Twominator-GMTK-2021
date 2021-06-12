@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7814939994740599861}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.16636133, y: 0.6277356, z: 10.998249}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _colorEnum: {fileID: 11400000, guid: c14f8bcc50a37a94da9c6d538b3fee99, type: 2}
   _sprite: {fileID: 7814939994999382919}
-  _isActive: 0
+  _isActive: 1
   _doorCollider: {fileID: 7814939994999382936}
 --- !u!1 &7814939994999382938
 GameObject:
@@ -74,8 +74,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7814939994999382938}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 2.3, z: 1}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0}
+  m_LocalScale: {x: 0.5, y: 3.8, z: 1}
   m_Children: []
   m_Father: {fileID: 7814939994740599860}
   m_RootOrder: 0
