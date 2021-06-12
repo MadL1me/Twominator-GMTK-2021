@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private bool _ignoreNextStay;
     private bool _isMoveFrame;
     private bool _lastDirLeft;
+    private int _moveType;
 
     public bool IsControllable { get; set; } = true;
 
@@ -45,12 +46,17 @@ public class PlayerController : MonoBehaviour
         if (IsControllable)
         {
             if (Input.GetKey(KeyCode.A))
-                MoveLeft();
+            {
+                _moveType |= 0b1;
+                _moveType &= ~0b10;
+            }
             else if (Input.GetKey(KeyCode.D))
-                MoveRight();
+            {
+                _moveType |= 0b11;
+            }
 
-            if (Input.GetKeyDown(KeyCode.Space) && _isOnGround)
-                Jump();
+            if (Input.GetKeyDown(KeyCode.Space))
+                _moveType |= 0b100;
         }
 
         if (_isMoveFrame)
@@ -103,6 +109,19 @@ public class PlayerController : MonoBehaviour
         
         if (!IsControllable)
             return;
+
+        if ((_moveType & 0b1) == 0b1)
+        {
+            if ((_moveType & 0b10) == 0b10)
+                MoveRight();
+            else
+                MoveLeft();
+        }
+        
+        if ((_moveType & 0b100) == 0b100 && _isOnGround)
+            Jump();
+
+        _moveType = 0;
         
         for (var i = 0; i < _captureCmds.Length; i++)
         {
