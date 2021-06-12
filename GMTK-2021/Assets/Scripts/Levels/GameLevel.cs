@@ -15,15 +15,18 @@ namespace Levels
         public GameObject PlayerStart;
 
         private TimelineController _timelineController = new TimelineController();
+        
         private ActivatableElement[] _levelActivatables;
-        private ActivatableElementState[] _levelStates;
+        private ActivatableElementState[] _activatableStates;
 
+        private PositionStateElement[] _positionStateElements;
+        private PositionState[] _positionStates;
+        
         public IEnumerable<ActivatableElement> GetAllActivatableElements => _levelActivatables;
         public IEnumerable<ListenerElement> GetLevelListeners => _levelActivatables.OfType<ListenerElement>().ToList();
         public IEnumerable<ActivatorElement> GetLevelActivators => _levelActivatables.OfType<ActivatorElement>().ToList();
-        
         public TimelineController Timeline => _timelineController;
-
+        
         private void Awake()
         {
             SaveLevelInitialState();
@@ -36,17 +39,20 @@ namespace Levels
 
         public void SaveLevelInitialState()
         {
+           // _positionStateElements = GetComponentInChildren<PositionStateElement>();
             _levelActivatables = GetComponentsInChildren<ActivatableElement>();
-            _levelStates = new ActivatableElementState[_levelActivatables.Length];
+            _activatableStates = new ActivatableElementState[_levelActivatables.Length];
+            
+           //_positionStates = new PositionState(_positionStateElements);
 
             for (int i = 0; i<_levelActivatables.Length; i++)
-                _levelStates[i] = _levelActivatables[i].GetState();
+                _activatableStates[i] = _levelActivatables[i].GetState();
         }
 
         public void LoadLevelInitialState()
         {
-            for (int i = 0; i<_levelActivatables.Length; i++)
-                _levelActivatables[i].SetState(_levelStates[i]);
+            for (int i = 0; i<_levelActivatables.Length; i++) 
+                _levelActivatables[i].SetState(_activatableStates[i]);
         }
 
         public void SavePlayerCommand(PlayerCommands command)
