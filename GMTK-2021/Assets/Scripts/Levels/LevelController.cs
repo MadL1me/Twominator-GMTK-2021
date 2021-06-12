@@ -130,7 +130,7 @@ public class LevelController : MonoBehaviour
         {
             futureLevel.gameObject.SetActive(true);
 
-            futureLevel.transform.position = returnBack ? new Vector3(0F, -12F) : new Vector3(0F, 12F);
+            futureLevel.transform.position = returnBack ? new Vector3(0F, -13.5F) : new Vector3(0F, 13.5F);
         }
 
         if (!skipAnim)
@@ -142,18 +142,18 @@ public class LevelController : MonoBehaviour
                     if (_pastLevel != -1)
                     {
                         pastLevel.transform.position =
-                            new Vector3(0F, -4F - (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 8F);
+                            new Vector3(0F, -4.5F - (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 9F);
                         currentLevel.transform.position =
-                            new Vector3(0F, 4F - (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 8F);
+                            new Vector3(0F, 4.5F - (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 9F);
                     }
                     else
                     {
                         currentLevel.transform.position =
-                            new Vector3(0F, -(Time.timeSinceLevelLoad - animStart) / TransitionDuration * 4F);
+                            new Vector3(0F, -(Time.timeSinceLevelLoad - animStart) / TransitionDuration * 4.5F);
                     }
 
                     futureLevel.transform.position =
-                        new Vector3(0F, 12F - (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 8F);
+                        new Vector3(0F, 13.5F - (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 9F);
 
                     yield return null;
                 }
@@ -163,19 +163,19 @@ public class LevelController : MonoBehaviour
                 while (Time.timeSinceLevelLoad - animStart < TransitionDuration)
                 {
                     pastLevel.transform.position =
-                        new Vector3(0F, 4F + (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 8F);
+                        new Vector3(0F, 4.5F + (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 9F);
 
                     if (_pastLevel != 0)
                     {
                         currentLevel.transform.position =
-                            new Vector3(0F, -4F + (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 8F);
+                            new Vector3(0F, -4.5F + (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 9F);
                         futureLevel.transform.position =
-                            new Vector3(0F, -12F + (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 8F);
+                            new Vector3(0F, -13.5F + (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 9F);
                     }
                     else
                     {
                         currentLevel.transform.position =
-                            new Vector3(0F, -4F + (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 4F);
+                            new Vector3(0F, -4.5F + (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 4.5F);
                     }
 
                     yield return null;
@@ -186,12 +186,12 @@ public class LevelController : MonoBehaviour
         if (!returnBack)
         {
             if (_pastLevel != -1)
-                pastLevel.transform.position = new Vector3(0F, -12F);
+                pastLevel.transform.position = new Vector3(0F, -13.5F);
 
             if (_currentLevel != -1)
             {
-                currentLevel.transform.position = new Vector3(0F, -4F);
-                futureLevel.transform.position = new Vector3(0F, 4F);
+                currentLevel.transform.position = new Vector3(0F, -4.5F);
+                futureLevel.transform.position = new Vector3(0F, 4.5F);
             }
             else
             {
@@ -200,12 +200,12 @@ public class LevelController : MonoBehaviour
         }
         else
         {
-            pastLevel.transform.position = new Vector3(0F, 12F);
+            pastLevel.transform.position = new Vector3(0F, 13.5F);
 
             if (_pastLevel != 0)
             {
-                currentLevel.transform.position = new Vector3(0F, 4F);
-                futureLevel.transform.position = new Vector3(0F, -4F);
+                currentLevel.transform.position = new Vector3(0F, 4.5F);
+                futureLevel.transform.position = new Vector3(0F, -4.5F);
             }
             else
             {
