@@ -82,17 +82,21 @@ namespace LogicalElements
 
         private void OnActivatorActivate(ColorEnum colorEnum)
         {
+            Debug.Log("OnActivator activate");
+            
             foreach (var listener in ColorToListener[colorEnum])
             {
-                //listener.Activate();
+                listener.Switch();
             }
         }
 
         private void OnActivatorDeactivate(ColorEnum colorEnum)
         {
+            Debug.Log("OnActivator deactivate");
+            
             foreach (var listener in ColorToListener[colorEnum])
             {
-                //listener.Deactivate();
+                listener.Switch();
             }
         }
 

@@ -38,41 +38,48 @@ namespace LogicalElements
             IsActive = state.IsActive;
                         
             if (IsActive)
-                Activate();
+                Activate(false);
             else
-                Deactivate();
+                Deactivate(false);
         }
 
         public ActivatableElementState GetState()
         {
-            
             return new ActivatableElementState
             {
                 IsActive = IsActive
             };
         }
         
-        public virtual void Switch()
+        public virtual void Switch(bool fireEvent = true)
         {
-            print($"SWITCH IN {gameObject.name}");
-            OnSwitch?.Invoke(ColorEnum);
-
             if (IsActive)
-                Deactivate();
+                Deactivate(false);
             else
-                Activate();
+                Activate(false);
+            
+            if (fireEvent)
+                OnSwitch?.Invoke(ColorEnum);
         }
         
-        public virtual void Activate()
+        public virtual void Activate(bool fireEvent = true)
         {
+            print($"Activate at object: {gameObject.name}");
+            
             IsActive = true;
-            //OnActivate?.Invoke(ColorEnum);
+            
+            /*if (fireEvent)
+                OnActivate?.Invoke(ColorEnum);*/
         }
 
-        public virtual void Deactivate()
+        public virtual void Deactivate(bool fireEvent = true)
         {
+            print($"Deactivate at object: {gameObject.name}");
+            
             IsActive = false;
-            //OnDeactivate?.Invoke(ColorEnum);
+            
+            /*if (fireEvent)
+                OnDeactivate?.Invoke(ColorEnum);*/
         }
     }
 }

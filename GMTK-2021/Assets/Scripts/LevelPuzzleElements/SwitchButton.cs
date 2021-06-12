@@ -13,15 +13,15 @@ namespace LogicalElements
             Switch();
         }
 
-        public override void Activate()
+        public override void Activate(bool fireEvent = true)
         {
-            base.Activate();
+            base.Activate(fireEvent);
             _sprite.SetAlpha(1);
         }
        
-        public override void Deactivate()
+        public override void Deactivate(bool fireEvent = true)
         {
-            base.Deactivate();
+            base.Deactivate(fireEvent);
             _sprite.SetAlpha(0.3f);
         }
     }
