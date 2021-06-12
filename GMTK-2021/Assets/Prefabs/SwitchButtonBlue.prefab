@@ -740,7 +740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b19aaf2256ef40c4b39fed13fc6bdcec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colorEnum: {fileID: 11400000, guid: c14f8bcc50a37a94da9c6d538b3fee99, type: 2}
+  _colorEnum: {fileID: 11400000, guid: a6dc67e42e3a8fc42981a909a935e401, type: 2}
   _activeTilemap: {fileID: 702088466602273479}
   _inactiveTilemap: {fileID: 702088467109576024}
   _isActive: 1

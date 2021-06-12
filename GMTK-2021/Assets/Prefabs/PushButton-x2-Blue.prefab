@@ -432,11 +432,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75d069bf465e4721a5496829649ab154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colorEnum: {fileID: 11400000, guid: c14f8bcc50a37a94da9c6d538b3fee99, type: 2}
+  _colorEnum: {fileID: 11400000, guid: a6dc67e42e3a8fc42981a909a935e401, type: 2}
   _activeTilemap: {fileID: 1890293879089265552}
   _inactiveTilemap: {fileID: 1890293880631207101}
   _isActive: 0
   _connectedActivatableElements: []
+  PersistentButton: 0
 --- !u!61 &9184556255006543600
 BoxCollider2D:
   m_ObjectHideFlags: 0
