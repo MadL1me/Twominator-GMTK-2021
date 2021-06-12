@@ -6,6 +6,8 @@ namespace LogicalElements
 {
     public class PushableButton : ActivatorElement
     {
+        public bool PersistentButton = true;
+        
         private int _objectsOnButton = 0;
         
         private void OnTriggerEnter2D(Collider2D other)
@@ -28,7 +30,7 @@ namespace LogicalElements
                 _objectsOnButton--;
             }
 
-            if (_objectsOnButton <= 0)
+            if (_objectsOnButton <= 0 && !PersistentButton)
             {
                 if (IsActive)
                     Switch();
