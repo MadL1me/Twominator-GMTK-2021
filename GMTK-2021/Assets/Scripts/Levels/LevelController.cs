@@ -67,12 +67,12 @@ public class LevelController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F1) && !_isTransitioning)
-            TransitionToLevel(_currentLevel + 1);
-
-        if (Input.GetKeyDown(KeyCode.F2) && !_isTransitioning)
-            TransitionToLevel(_currentLevel - 1);
+        if (Input.GetKeyDown(KeyCode.Backspace) && HasPastLevel && !_isTransitioning)
+            TransitionToPrevLevel();
         
+        if (Input.GetKeyDown(KeyCode.R) && !_isTransitioning)
+            ReloadLevel();
+                
         _levelUi.UpdateUi(CurrentLevel.Timeline.CurrentTick);
     }
 
@@ -80,6 +80,12 @@ public class LevelController : MonoBehaviour
     {
         Player.ReassignToLevel(Levels[_currentLevel + 1]);
         TransitionToLevel(_currentLevel + 1);
+    }
+    
+    public void TransitionToPrevLevel()
+    {
+        Player.ReassignToLevel(Levels[_currentLevel - 1]);
+        TransitionToLevel(_currentLevel - 1);
     }
 
     public void TransitionToLevel(int levelId, bool skipAnim = false)
