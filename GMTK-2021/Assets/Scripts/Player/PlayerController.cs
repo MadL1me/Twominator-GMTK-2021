@@ -42,8 +42,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        _rigidbody.velocity = new Vector2(0F, _rigidbody.velocity.y);
-
         if (IsControllable)
         {
             if (Input.GetKey(KeyCode.A))
@@ -107,6 +105,8 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         _isMoveFrame = false;
+        
+        _rigidbody.velocity = new Vector2(0F, _rigidbody.velocity.y);
         
         if (!IsControllable)
             return;

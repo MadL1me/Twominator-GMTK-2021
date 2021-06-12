@@ -13657,8 +13657,8 @@ GameObject:
   - component: {fileID: 2067863613}
   - component: {fileID: 2067863612}
   - component: {fileID: 2067863611}
-  - component: {fileID: 2067863610}
   - component: {fileID: 2067863609}
+  - component: {fileID: 2067863610}
   - component: {fileID: 2067863615}
   m_Layer: 7
   m_Name: PlayerDummy

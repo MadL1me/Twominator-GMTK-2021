@@ -28,7 +28,14 @@ public class LevelController : MonoBehaviour
     public GameLevel PastLevel => _pastLevel >= 0 ? Levels[_pastLevel] : null;
 
     private LevelActivatablesController _levelActivatablesController;
-    
+
+    private void Awake()
+    {
+        #if UNITY_EDITOR
+        Application.targetFrameRate = 0;
+        #endif
+    }
+
     private void Start()
     {
         TransitionToLevel(StartingLevel, true);
