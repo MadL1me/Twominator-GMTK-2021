@@ -6,6 +6,8 @@ namespace LogicalElements
 {
     public class Laser : ListenerElement
     {
+        [SerializeField] private Transform _laserInitiator;
+        
         private void OnTriggerEnter2D(Collider2D other)
         {
             print("LASER TRIGGER OMFG");
@@ -15,7 +17,13 @@ namespace LogicalElements
                 other.gameObject.GetComponent<PlayerController>().Die();
             }
         }
-        
+
+        public void RayCast()
+        {
+            var endPoint = Physics2D.Raycast(_laserInitiator.transform.position, _laserInitiator.up);
+            
+        }
+
         public override void Activate(bool fireEvent = true)
         {
             base.Activate(fireEvent);

@@ -8,6 +8,8 @@ namespace LogicalElements
         public void SetState(PositionState state)
         {
             transform.localPosition = state.StartPosition;
+            if (TryGetComponent<Rigidbody2D>(out var rigidbody))
+                rigidbody.velocity = Vector2.zero;
         }
 
         public PositionState GetState()
