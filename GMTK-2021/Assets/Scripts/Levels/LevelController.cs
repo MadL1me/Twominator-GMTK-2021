@@ -14,6 +14,9 @@ public class LevelController : MonoBehaviour
 
     public int StartingLevel;
     public float TransitionDuration = 0.75F;
+    
+    public bool IsDummyCompleted { get; set; }
+    public bool IsPlayerCompleted { get; set; }
 
     private int _currentLevel = -1;
     private int _pastLevel = -1;
@@ -21,6 +24,7 @@ public class LevelController : MonoBehaviour
 
     public GameLevel CurrentLevel => Levels[_currentLevel];
     public GameLevel PastLevel => Levels[_pastLevel];
+    public bool HasPastLevel => _pastLevel != -1;
 
     private void Start()
     {
@@ -34,6 +38,17 @@ public class LevelController : MonoBehaviour
         
         CurrentLevel.LoadLevelInitialState();
         SynchronizeLevelsActivatableElements();
+        
+        CurrentLevel.AssignObjectAndSpawnAtStart(Player.gameObject);
+
+        if (_pastLevel != -1)
+            PlayerDummy.RespawnDummy();
+        
+        Player.gameObject.SetActive(true);
+        Player.GetComponent<Rigidbody2D>().simulated = true;
+
+        IsDummyCompleted = false;
+        IsPlayerCompleted = false;
     }
 
     public void SynchronizeLevelsActivatableElements()
@@ -95,6 +110,8 @@ public class LevelController : MonoBehaviour
     public void TransitionToLevel(int levelId, bool skipAnim = false)
     {
         _isTransitioning = true;
+        IsDummyCompleted = false;
+        IsPlayerCompleted = false;
         StartCoroutine(PlayTransitionAnimation(levelId, skipAnim));
     }
 
@@ -191,13 +208,7 @@ public class LevelController : MonoBehaviour
             _currentLevel = nextLevelId;
         }
 
-        CurrentLevel.AssignObjectAndSpawnAtStart(Player.gameObject);
-
-        if (_pastLevel != -1)
-            PlayerDummy.RespawnDummy();
-
         ReloadLevel();
-        Player.gameObject.SetActive(true);
         _isTransitioning = false;
     }
 }

@@ -8,23 +8,26 @@ namespace Levels
     public class TimelineController
     {
         public int CurrentTick;
-        private Queue<PlayerCommand> _commands = new Queue<PlayerCommand>();
+        public int LastValidTick;
+        private List<PlayerCommand> _commands = new List<PlayerCommand>();
+        private int _curId;
+
+        public bool HasEndedPlayback => CurrentTick > LastValidTick + 30;
 
         public void ReloadTimeline()
         {
             CurrentTick = 0;
+            _curId = 0;
         }
 
         public IEnumerable<PlayerCommand> GetPlaybackForCurrentTickAndAdvance()
         {
-            while (_commands.Count > 0)
+            while (_curId < _commands.Count)
             {
-                var cmd = _commands.Peek();
-                
-                if (cmd.Tick != CurrentTick)
+                if (_commands[_curId].Tick != CurrentTick)
                     break;
 
-                yield return _commands.Dequeue();
+                yield return _commands[_curId++];
             }
 
             CurrentTick++;
@@ -32,7 +35,8 @@ namespace Levels
 
         public void SaveCommand(PlayerCommands command)
         {
-            _commands.Enqueue(new PlayerCommand { Tick = CurrentTick, Type = command });
+            _commands.Add(new PlayerCommand { Tick = CurrentTick, Type = command });
+            LastValidTick = CurrentTick;
         }
 
         public void AdvanceTick()
@@ -44,6 +48,7 @@ namespace Levels
         {
             _commands.Clear();
             CurrentTick = 0;
+            _curId = 0;
         }
     }
 }

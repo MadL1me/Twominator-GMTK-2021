@@ -22,6 +22,7 @@ public class PlaybackDummy : MonoBehaviour
     public void RespawnDummy()
     {
         gameObject.SetActive(true);
+        GetComponent<Rigidbody2D>().simulated = true;
         LevelController.PastLevel.AssignObjectAndSpawnAtStart(gameObject);
         RewindDummy();
         _spawned = true;
@@ -39,5 +40,9 @@ public class PlaybackDummy : MonoBehaviour
         
         foreach (var cmd in LevelController.PastLevel.Timeline.GetPlaybackForCurrentTickAndAdvance())
             _controller.PlayCommand(cmd);
+        
+        if (LevelController.PastLevel.Timeline.HasEndedPlayback && 
+            LevelController.IsPlayerCompleted && !LevelController.IsDummyCompleted)
+            LevelController.ReloadLevel();
     }
 }
