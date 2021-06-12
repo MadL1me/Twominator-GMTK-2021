@@ -6,8 +6,9 @@ namespace LogicalElements
 {
     public abstract class ActivatableElement : MonoBehaviour
     {
-        public event Action OnActivated;
-        public event Action OnDeactivated;
+        public event Action<ColorEnum> OnActivate;
+        public event Action<ColorEnum> OnDeactivate;
+        public event Action<ColorEnum> OnSwitch;
         
         public ColorEnum ColorEnum 
         {
@@ -35,10 +36,16 @@ namespace LogicalElements
         public void SetState(ActivatableElementState state)
         {
             IsActive = state.IsActive;
+                        
+            if (IsActive)
+                Activate();
+            else
+                Deactivate();
         }
 
         public ActivatableElementState GetState()
         {
+            
             return new ActivatableElementState
             {
                 IsActive = IsActive
@@ -47,6 +54,9 @@ namespace LogicalElements
         
         public virtual void Switch()
         {
+            print($"SWITCH IN {gameObject.name}");
+            OnSwitch?.Invoke(ColorEnum);
+
             if (IsActive)
                 Deactivate();
             else
@@ -56,13 +66,13 @@ namespace LogicalElements
         public virtual void Activate()
         {
             IsActive = true;
-            OnActivated?.Invoke();
+            //OnActivate?.Invoke(ColorEnum);
         }
 
         public virtual void Deactivate()
         {
             IsActive = false;
-            OnDeactivated?.Invoke();
+            //OnDeactivate?.Invoke(ColorEnum);
         }
     }
 }

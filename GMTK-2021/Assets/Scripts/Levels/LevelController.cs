@@ -22,10 +22,12 @@ public class LevelController : MonoBehaviour
     private int _pastLevel = -1;
     private bool _isTransitioning;
 
-    public GameLevel CurrentLevel => Levels[_currentLevel];
-    public GameLevel PastLevel => Levels[_pastLevel];
     public bool HasPastLevel => _pastLevel != -1;
+    public GameLevel CurrentLevel => _currentLevel < Levels.Length ? Levels[_currentLevel] : null;
+    public GameLevel PastLevel => _pastLevel >= 0 ? Levels[_pastLevel] : null;
 
+    private LevelActivatablesController _levelActivatablesController;
+    
     private void Start()
     {
         TransitionToLevel(StartingLevel, true);
@@ -49,6 +51,9 @@ public class LevelController : MonoBehaviour
 
         IsDummyCompleted = false;
         IsPlayerCompleted = false;
+        
+        _levelActivatablesController?.UnSubscribeFromActivatorEvents();
+        _levelActivatablesController = new LevelActivatablesController(PastLevel, CurrentLevel);
     }
 
     public void SynchronizeLevelsActivatableElements()
