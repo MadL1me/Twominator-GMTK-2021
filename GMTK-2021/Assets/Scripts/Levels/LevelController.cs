@@ -11,7 +11,8 @@ public class LevelController : MonoBehaviour
     public PlayerController Player;
     public PlaybackDummy PlayerDummy;
     public GameLevel[] Levels;
-
+    [SerializeField] private LevelUiController _levelUi;
+    
     public int StartingLevel;
     public float TransitionDuration = 0.75F;
     
@@ -31,12 +32,21 @@ public class LevelController : MonoBehaviour
     private void Start()
     {
         TransitionToLevel(StartingLevel, true);
+        _levelUi.InitLevelUi();
     }
     
     public void ReloadLevel()
     {
         if (_pastLevel >= 0)
+        {
+            _levelUi.Enable();
+            _levelUi.OnNextLevelStart(PastLevel, CurrentLevel);
             PastLevel.LoadLevelInitialState();
+        }
+        else
+        {
+            _levelUi.Disable();
+        }
         
         CurrentLevel.LoadLevelInitialState();
         CurrentLevel.AssignObjectAndSpawnAtStart(Player.gameObject);
@@ -52,6 +62,7 @@ public class LevelController : MonoBehaviour
         
         _levelActivatablesController?.UnSubscribeFromActivatorEvents();
         _levelActivatablesController = new LevelActivatablesController(PastLevel, CurrentLevel);
+        
     }
 
     private void Update()
@@ -61,6 +72,8 @@ public class LevelController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F2) && !_isTransitioning)
             TransitionToLevel(_currentLevel - 1);
+        
+        _levelUi.UpdateUi(CurrentLevel.Timeline.CurrentTick);
     }
 
     public void TransitionToNextLevel()
