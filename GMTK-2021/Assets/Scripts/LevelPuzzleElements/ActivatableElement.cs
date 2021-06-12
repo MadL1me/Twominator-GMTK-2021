@@ -68,8 +68,6 @@ namespace LogicalElements
 
             _activeTilemap.enabled = true;
             _inactiveTilemap.enabled = false;
-            /*if (fireEvent)
-                OnActivate?.Invoke(ColorEnum);*/
         }
 
         public virtual void Deactivate(bool fireEvent = true)
@@ -80,8 +78,6 @@ namespace LogicalElements
             
             _activeTilemap.enabled = false;
             _inactiveTilemap.enabled = true;
-            /*if (fireEvent)
-                OnDeactivate?.Invoke(ColorEnum);*/
         }
     }
 }
