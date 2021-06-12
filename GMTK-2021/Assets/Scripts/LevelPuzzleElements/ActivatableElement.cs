@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace LogicalElements
 {
@@ -13,11 +14,7 @@ namespace LogicalElements
         public ColorEnum ColorEnum 
         {
             get => _colorEnum;
-            set
-            {
-                _colorEnum = value;
-                _sprite.color = value.Color;
-            } 
+            set => _colorEnum = value;
         }
 
         public bool IsActive
@@ -30,7 +27,8 @@ namespace LogicalElements
         }
         
         [SerializeField] protected ColorEnum _colorEnum;
-        [SerializeField] protected SpriteRenderer _sprite;
+        [SerializeField] protected TilemapRenderer _activeTilemap;
+        [SerializeField] protected TilemapRenderer _inactiveTilemap;
         [SerializeField] protected bool _isActive;
         
         public void SetState(ActivatableElementState state)
@@ -67,7 +65,9 @@ namespace LogicalElements
             print($"Activate at object: {gameObject.name}");
             
             IsActive = true;
-            
+
+            _activeTilemap.enabled = true;
+            _inactiveTilemap.enabled = false;
             /*if (fireEvent)
                 OnActivate?.Invoke(ColorEnum);*/
         }
@@ -78,6 +78,8 @@ namespace LogicalElements
             
             IsActive = false;
             
+            _activeTilemap.enabled = false;
+            _inactiveTilemap.enabled = true;
             /*if (fireEvent)
                 OnDeactivate?.Invoke(ColorEnum);*/
         }

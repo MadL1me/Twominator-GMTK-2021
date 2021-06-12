@@ -21,19 +21,16 @@ namespace LogicalElements
         public void RayCast()
         {
             var endPoint = Physics2D.Raycast(_laserInitiator.transform.position, _laserInitiator.up);
-            
         }
 
         public override void Activate(bool fireEvent = true)
         {
             base.Activate(fireEvent);
-            _sprite.SetAlpha(1f);
         }
         
         public override void Deactivate(bool fireEvent = true)
         {
             base.Deactivate(fireEvent);
-            _sprite.SetAlpha(0.3f);
         }
     }
 }

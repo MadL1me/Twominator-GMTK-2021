@@ -13,14 +13,12 @@ namespace LogicalElements
         {
             base.Activate(fireEvent);
             _doorCollider.enabled = true;
-            _sprite.SetAlpha(1f);
         }
         
         public override void Deactivate(bool fireEvent = true)
         {
             base.Deactivate(fireEvent);
             _doorCollider.enabled = false;
-            _sprite.SetAlpha(0.3f);
         }
     }
 }

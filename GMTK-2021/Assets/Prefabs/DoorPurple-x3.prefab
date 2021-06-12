@@ -339,7 +339,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -586,7 +586,7 @@ GameObject:
   - component: {fileID: 7814939994740599860}
   - component: {fileID: 7814939994740599859}
   m_Layer: 0
-  m_Name: DoorPurple
+  m_Name: DoorPurple-x3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -621,7 +621,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _colorEnum: {fileID: 11400000, guid: c14f8bcc50a37a94da9c6d538b3fee99, type: 2}
-  _sprite: {fileID: 0}
+  _activeTilemap: {fileID: 328565644}
+  _inactiveTilemap: {fileID: 1592265539}
   _isActive: 1
   _doorCollider: {fileID: 7814939994999382936}
 --- !u!1 &7814939994999382938
