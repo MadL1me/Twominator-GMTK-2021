@@ -12,16 +12,23 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameLevel _levelAttachedToPlayer;
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _playerSpeed;
-    [SerializeField] private float _downRaycastDistance = 1;
-    
+
+    private SpriteRenderer _sprite;
+    private Animator _anim;
     private Rigidbody2D _rigidbody;
     private bool[] _captureCmds;
+    private bool _isOnGround;
+    private bool _ignoreNextStay;
+    private bool _isMoveFrame;
+    private bool _lastDirLeft;
 
     public bool IsControllable { get; set; } = true;
 
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _sprite = GetComponent<SpriteRenderer>();
+        _anim = GetComponent<Animator>();
         _captureCmds = new bool[Enum.GetValues(typeof(PlayerCommands)).Length];
     }
 
@@ -32,16 +39,55 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (!IsControllable)
-            return;
+        _rigidbody.velocity = new Vector2(0F, _rigidbody.velocity.y);
 
-        if (Input.GetKey(KeyCode.A))
-            MoveLeft();
-        else if (Input.GetKey(KeyCode.D))
-            MoveRight();
-        
-        if (Input.GetKeyDown(KeyCode.Space))
-            Jump();
+        if (IsControllable)
+        {
+            if (Input.GetKey(KeyCode.A))
+                MoveLeft();
+            else if (Input.GetKey(KeyCode.D))
+                MoveRight();
+
+            if (Input.GetKeyDown(KeyCode.Space) && _isOnGround)
+                Jump();
+        }
+
+        if (_isMoveFrame)
+        {
+            _sprite.flipX = _lastDirLeft;
+            _anim.SetBool("IsPointedLeft", _lastDirLeft);
+            _anim.SetBool("IsMoving", true);
+        }
+        else
+        {
+            _anim.SetBool("IsMoving", false);
+        }
+
+        _anim.SetBool("IsOffGround", !_isOnGround);
+    }
+
+    private void OnCollisionStay2D(Collision2D other)
+    {
+        if (_ignoreNextStay)
+        {
+            _ignoreNextStay = false;
+            return;
+        }
+
+        foreach (var contact in other.contacts)
+        {
+            if (contact.normal.y > 0.8F)
+                _isOnGround = true;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        foreach (var contact in other.contacts)
+        {
+            if (contact.normal.y > 0.8F)
+                _isOnGround = true;
+        }
     }
 
     private void ResetCapture()
@@ -52,6 +98,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        _isMoveFrame = false;
+        
         if (!IsControllable)
             return;
         
@@ -66,16 +114,13 @@ public class PlayerController : MonoBehaviour
         ResetCapture();
     }
 
-    private bool OnGround()
-    {
-        return Physics2D.Raycast(transform.position, Vector2.down, _downRaycastDistance);
-    }
-
     public void MoveLeft()
     {
         _rigidbody.velocity = new Vector2((_playerSpeed * Vector2.left).x, _rigidbody.velocity.y);
         _captureCmds[(int) PlayerCommands.MoveLeft] = true;
         _captureCmds[(int) PlayerCommands.MoveRight] = false;
+        _isMoveFrame = true;
+        _lastDirLeft = true;
     }
 
     public void MoveRight()
@@ -83,12 +128,16 @@ public class PlayerController : MonoBehaviour
         _rigidbody.velocity = new Vector2((_playerSpeed * Vector2.right).x, _rigidbody.velocity.y);
         _captureCmds[(int) PlayerCommands.MoveRight] = true;
         _captureCmds[(int) PlayerCommands.MoveLeft] = false;
+        _isMoveFrame = true;
+        _lastDirLeft = false;
     }
 
     public void Jump()
     {
-        _rigidbody.AddForce(Vector2.up * _jumpForce);
+        _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _jumpForce);
         _captureCmds[(int) PlayerCommands.Jump] = true;
+        _isOnGround = false;
+        _ignoreNextStay = true;
     }
 
     public void PlayCommand(PlayerCommand command)
@@ -111,7 +160,6 @@ public class PlayerController : MonoBehaviour
     {
         _jumpForce = real._jumpForce;
         _playerSpeed = real._playerSpeed;
-        _downRaycastDistance = real._downRaycastDistance;
 
         IsControllable = false;
     }
