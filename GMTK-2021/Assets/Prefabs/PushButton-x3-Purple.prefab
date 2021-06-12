@@ -453,7 +453,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _colorEnum: {fileID: 11400000, guid: c14f8bcc50a37a94da9c6d538b3fee99, type: 2}
-  _sprite: {fileID: 0}
+  _activeTilemap: {fileID: 448312296}
+  _inactiveTilemap: {fileID: 1720937675}
   _isActive: 0
   _connectedActivatableElements: []
 --- !u!61 &7299689600053446279

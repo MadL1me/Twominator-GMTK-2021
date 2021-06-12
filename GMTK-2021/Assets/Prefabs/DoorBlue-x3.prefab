@@ -158,7 +158,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -643,7 +643,7 @@ GameObject:
   - component: {fileID: 8194711942994632069}
   - component: {fileID: 8194711942994632066}
   m_Layer: 0
-  m_Name: DoorBlue
+  m_Name: DoorBlue-x3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -678,6 +678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _colorEnum: {fileID: 11400000, guid: c14f8bcc50a37a94da9c6d538b3fee99, type: 2}
-  _sprite: {fileID: 0}
+  _activeTilemap: {fileID: 2147453536970781245}
+  _inactiveTilemap: {fileID: 2147453537992391410}
   _isActive: 1
   _doorCollider: {fileID: 8194711942203920937}
