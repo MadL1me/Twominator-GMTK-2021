@@ -21,6 +21,13 @@ public class PlaybackDummy : MonoBehaviour
 
     public void RespawnDummy()
     {
+        if (!LevelController.HasPastLevel)
+        {
+            gameObject.SetActive(false);
+            _spawned = false;
+            return;
+        }
+        
         gameObject.SetActive(true);
         GetComponent<Rigidbody2D>().simulated = true;
         LevelController.PastLevel.AssignObjectAndSpawnAtStart(gameObject);
