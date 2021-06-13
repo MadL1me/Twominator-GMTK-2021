@@ -91,13 +91,14 @@ public class LevelController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Backspace) && HasPastLevel && !_isTransitioning)
         {
             _rewindToBackSource.Play();
-            TransitionToPrevLevel();
+            TransitionToPrevLevel(true);
         }
 
         if (Input.GetKeyDown(KeyCode.R) && !_isTransitioning)
         {
             _rewindLevelSource.Play();
             Player.GetComponent<Rigidbody2D>().simulated = false;
+            _isTransitioning = true;
             StartCoroutine(PlayRewindAnimation());
         }
         
@@ -118,18 +119,18 @@ public class LevelController : MonoBehaviour
         TransitionToLevel(_currentLevel + 1);
     }
     
-    public void TransitionToPrevLevel()
+    public void TransitionToPrevLevel(bool playEffect = false)
     {
         Player.ReassignToLevel(Levels[_currentLevel - 1]);
-        TransitionToLevel(_currentLevel - 1);
+        TransitionToLevel(_currentLevel - 1, playEffect: playEffect);
     }
 
-    public void TransitionToLevel(int levelId, bool skipAnim = false)
+    public void TransitionToLevel(int levelId, bool skipAnim = false, bool playEffect = false)
     {
         _isTransitioning = true;
         IsDummyCompleted = false;
         IsPlayerCompleted = false;
-        StartCoroutine(PlayTransitionAnimation(levelId, skipAnim));
+        StartCoroutine(PlayTransitionAnimation(levelId, skipAnim, playEffect, playEffect ? 1F : 0F));
     }
 
     private IEnumerator PlayRewindAnimation()
@@ -156,15 +157,19 @@ public class LevelController : MonoBehaviour
             yield return null;
         }
 
+        _isTransitioning = false;
         RewindEffect.enabled = false;
         ReloadLevel();
     }
 
-    private IEnumerator PlayTransitionAnimation(int nextLevelId, bool skipAnim)
+    private IEnumerator PlayTransitionAnimation(int nextLevelId, bool skipAnim, bool playEffect, float transitionDuration = 0F)
     {
         var animStart = Time.timeSinceLevelLoad;
 
         var returnBack = nextLevelId == _pastLevel;
+
+        if (transitionDuration == 0F)
+            transitionDuration = TransitionDuration;
 
         var pastLevel = returnBack ? Levels[_currentLevel] :
             _pastLevel == -1 ? null : Levels[_pastLevel];
@@ -181,49 +186,62 @@ public class LevelController : MonoBehaviour
             futureLevel.transform.position = returnBack ? new Vector3(0F, -13.5F) : new Vector3(0F, 13.5F);
         }
 
+        if (playEffect)
+        {
+            RewindEffect.Intensity = 1F;
+            RewindEffect.enabled = true;
+        }
+
         if (!skipAnim)
         {
             if (!returnBack)
             {
-                while (Time.timeSinceLevelLoad - animStart < TransitionDuration)
+                while (Time.timeSinceLevelLoad - animStart < transitionDuration)
                 {
                     if (_pastLevel != -1)
                     {
                         pastLevel.transform.position =
-                            new Vector3(0F, -4.5F - (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 9F);
+                            new Vector3(0F, -4.5F - (Time.timeSinceLevelLoad - animStart) / transitionDuration * 9F);
                         currentLevel.transform.position =
-                            new Vector3(0F, 4.5F - (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 9F);
+                            new Vector3(0F, 4.5F - (Time.timeSinceLevelLoad - animStart) / transitionDuration * 9F);
                     }
                     else
                     {
                         currentLevel.transform.position =
-                            new Vector3(0F, -(Time.timeSinceLevelLoad - animStart) / TransitionDuration * 4.5F);
+                            new Vector3(0F, -(Time.timeSinceLevelLoad - animStart) / transitionDuration * 4.5F);
                     }
 
                     futureLevel.transform.position =
-                        new Vector3(0F, 13.5F - (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 9F);
+                        new Vector3(0F, 13.5F - (Time.timeSinceLevelLoad - animStart) / transitionDuration * 9F);
 
                     yield return null;
                 }
             }
             else
             {
-                while (Time.timeSinceLevelLoad - animStart < TransitionDuration)
+                while (Time.timeSinceLevelLoad - animStart < transitionDuration)
                 {
+                    if (playEffect)
+                    {
+                        RewindEffect.Intensity = 
+                            1F + Mathf.Clamp((Time.timeSinceLevelLoad - animStart) / (transitionDuration * 0.1F) * 2F, 0F, 2F)
+                            - Mathf.Clamp((Time.timeSinceLevelLoad - animStart - 0.1F) / (transitionDuration * 0.1F) * 2F, 0F, 2F);
+                    }
+                    
                     pastLevel.transform.position =
-                        new Vector3(0F, 4.5F + (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 9F);
+                        new Vector3(0F, 4.5F + (Time.timeSinceLevelLoad - animStart) / transitionDuration * 9F);
 
                     if (_pastLevel != 0)
                     {
                         currentLevel.transform.position =
-                            new Vector3(0F, -4.5F + (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 9F);
+                            new Vector3(0F, -4.5F + (Time.timeSinceLevelLoad - animStart) / transitionDuration * 9F);
                         futureLevel.transform.position =
-                            new Vector3(0F, -13.5F + (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 9F);
+                            new Vector3(0F, -13.5F + (Time.timeSinceLevelLoad - animStart) / transitionDuration * 9F);
                     }
                     else
                     {
                         currentLevel.transform.position =
-                            new Vector3(0F, -4.5F + (Time.timeSinceLevelLoad - animStart) / TransitionDuration * 4.5F);
+                            new Vector3(0F, -4.5F + (Time.timeSinceLevelLoad - animStart) / transitionDuration * 4.5F);
                     }
 
                     yield return null;
@@ -274,6 +292,9 @@ public class LevelController : MonoBehaviour
             _pastLevel -= 1;
             _currentLevel = nextLevelId;
         }
+
+        if (playEffect)
+            RewindEffect.enabled = false;
 
         ReloadLevel();
         _isTransitioning = false;
