@@ -50,7 +50,7 @@ MonoBehaviour:
   _colorEnum: {fileID: 11400000, guid: a6dc67e42e3a8fc42981a909a935e401, type: 2}
   _activeTilemap: {fileID: 6522005362064512683}
   _inactiveTilemap: {fileID: 6522005362571247924}
-  _isActive: 1
+  _isActive: 0
   _activateAudioSource: {fileID: 6283243578897056584}
   _deactivateAudioSource: {fileID: 4825215441024527365}
   PersistentButton: 0

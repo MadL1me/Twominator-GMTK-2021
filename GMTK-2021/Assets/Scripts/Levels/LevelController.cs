@@ -7,6 +7,7 @@ using Levels;
 using LogicalElements;
 using Ui;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LevelController : MonoBehaviour
@@ -154,6 +155,9 @@ public class LevelController : MonoBehaviour
 
     public void TransitionToNextLevel()
     {
+        if (_currentLevel + 1 == Levels.Length)
+            SceneManager.LoadScene(3);
+        
         Player.ReassignToLevel(Levels[_currentLevel + 1]);
         TransitionToLevel(_currentLevel + 1);
     }
