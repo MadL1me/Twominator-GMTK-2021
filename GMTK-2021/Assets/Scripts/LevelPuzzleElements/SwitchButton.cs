@@ -44,7 +44,7 @@ namespace LogicalElements
             }
             else
             {
-                if (_touching.JustPressedUse || _touching.JustUnpressedUse)
+                if (_touching.JustPressedUse || _touching.JustUnpressedUse || (IsActive && !_isTouched))
                     Switch();
             }
         }
