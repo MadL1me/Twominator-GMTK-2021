@@ -34,6 +34,9 @@ public class LevelController : MonoBehaviour
     private int _pastLevel = -1;
     private bool _isTransitioning;
     private PostEffect _glitchEffect;
+    private PostEffect _timestopEffect;
+    private Rigidbody2D _playerRb;
+    private Rigidbody2D _dummyRb;
 
     public bool HasPastLevel => _pastLevel != -1;
     public GameLevel CurrentLevel => _currentLevel < Levels.Length ? Levels[_currentLevel] : null;
@@ -49,6 +52,7 @@ public class LevelController : MonoBehaviour
 
         RewindEffect = RewindEffect.GetComponents<PostEffect>()[1];
         _glitchEffect = RewindEffect.GetComponents<PostEffect>()[2];
+        _timestopEffect = RewindEffect.GetComponents<PostEffect>()[3];
     }
 
     private void Start()
@@ -58,6 +62,9 @@ public class LevelController : MonoBehaviour
         
         Player.ReassignToLevel(CurrentLevel);
         PlayerDummy.Player.ReassignToLevel(CurrentLevel);
+
+        _playerRb = Player.GetComponent<Rigidbody2D>();
+        _dummyRb = PlayerDummy.GetComponent<Rigidbody2D>();
     }
 
     public void Timelock()
@@ -120,6 +127,11 @@ public class LevelController : MonoBehaviour
             _isTransitioning = true;
             StartCoroutine(PlayRewindAnimation());
         }
+
+        if (!_dummyRb.simulated && !_isTransitioning && HasPastLevel)
+            _timestopEffect.Strength = Mathf.Min(1F, _timestopEffect.Strength + Time.deltaTime * 3F);
+        else
+            _timestopEffect.Strength = Mathf.Max(0F, _timestopEffect.Strength - Time.deltaTime * 3F);
         
         #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.F5))
@@ -184,7 +196,7 @@ public class LevelController : MonoBehaviour
         RewindEffect.Intensity = 0.4F;
         RewindEffect.enabled = true;
 
-        ParadoxText.text = "Dead";
+        ParadoxText.text = "DEAD";
         ParadoxText.gameObject.SetActive(true);
 
         while (Time.timeSinceLevelLoad - animStart < 2.5F)

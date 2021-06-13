@@ -2294,7 +2294,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &88310157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9712,25 +9712,7 @@ CompositeCollider2D:
   m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 365482651}
-    m_ColliderPaths:
-    - - X: 160000000
-        Y: 20000000
-      - X: -160000000
-        Y: 20000000
-      - X: -160000000
-        Y: 10000000
-      - X: 160000000
-        Y: 10000000
-    - - X: 160000000
-        Y: -20000000
-      - X: -160000000
-        Y: -20000000
-      - X: -160000000
-        Y: -30000000
-      - X: 160000000
-        Y: -30000000
+  m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
     - - {x: 15.999971, y: 1}
@@ -23219,29 +23201,7 @@ CompositeCollider2D:
   m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 1153668750}
-    m_ColliderPaths:
-    - - X: 100000000
-        Y: 20000000
-      - X: 160000000
-        Y: 20000000
-      - X: 160000000
-        Y: 30000000
-      - X: -160000000
-        Y: 30000000
-      - X: -160000000
-        Y: 10000000
-      - X: 100000000
-        Y: 10000000
-    - - X: 160000000
-        Y: -20000000
-      - X: -160000000
-        Y: -20000000
-      - X: -160000000
-        Y: -40000000
-      - X: 160000000
-        Y: -40000000
+  m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
     - - {x: 9.99997, y: 1}
@@ -29268,9 +29228,7 @@ CompositeCollider2D:
   m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 1491334889}
-    m_ColliderPaths: []
+  m_ColliderPaths: []
   m_CompositePaths:
     m_Paths: []
   m_VertexDistance: 0.0005
@@ -30020,7 +29978,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1533550332
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -32915,6 +32873,7 @@ GameObject:
   - component: {fileID: 1697413810}
   - component: {fileID: 1697413811}
   - component: {fileID: 1697413812}
+  - component: {fileID: 1697413813}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -33030,6 +32989,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PostMaterial: {fileID: 2100000, guid: 764ce53fda55d5f4c951532fc177ff44, type: 2}
+  Intensity: 1
+  Strength: 1
+--- !u!114 &1697413813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697413806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9af967d070802545af9867e935735a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PostMaterial: {fileID: 2100000, guid: 23f82aab039549041a11adf47a718fd1, type: 2}
   Intensity: 1
   Strength: 1
 --- !u!1 &1736609060
@@ -34102,7 +34076,7 @@ MonoBehaviour:
   Player: {fileID: 343259908}
   PlayerDummy: {fileID: 2067863609}
   Levels:
-  - {fileID: 1533550333}
+  - {fileID: 770558956}
   - {fileID: 1919545311}
   - {fileID: 88310157}
   - {fileID: 1183338917}
