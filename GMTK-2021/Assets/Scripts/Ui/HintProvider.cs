@@ -17,7 +17,10 @@ public class HintProvider : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player") && other.gameObject.name != "PlayerDummy")
+        if (!other.CompareTag("Player"))
+            return;
+
+        if (other.gameObject.name != "Player")
             return;
 
         _touching = true;
@@ -25,7 +28,10 @@ public class HintProvider : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (!other.CompareTag("Player") && other.gameObject.name != "PlayerDummy")
+        if (!other.CompareTag("Player"))
+            return;
+            
+        if (other.gameObject.name != "Player")
             return;
         
         _touching = false;
