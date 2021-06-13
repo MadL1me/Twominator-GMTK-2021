@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2116711921887641181}
   - component: {fileID: 2116711921887641179}
   - component: {fileID: 2116711921887641182}
-  - component: {fileID: -3260043823351195060}
   m_Layer: 0
   m_Name: SwitchButtonBlue-Double
   m_TagString: Untagged
@@ -54,7 +53,6 @@ MonoBehaviour:
   _isActive: 1
   _activateAudioSource: {fileID: 6283243578897056584}
   _deactivateAudioSource: {fileID: 4825215441024527365}
-  _connectedActivatableElements: []
 --- !u!58 &2116711921887641182
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -71,19 +69,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.5}
   serializedVersion: 2
   m_Radius: 1
---- !u!114 &-3260043823351195060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2116711921887641178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 398c90304e9d686418b7dd777c6dcff8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Text: Press E
 --- !u!1 &3960163228217531049
 GameObject:
   m_ObjectHideFlags: 0
