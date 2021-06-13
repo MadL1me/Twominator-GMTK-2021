@@ -30,7 +30,7 @@ public class ArrowSelector : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.UpArrow))
             _selected = _selected == 0 ? 1 : 0;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
         {
             if (_selected == 0)
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
