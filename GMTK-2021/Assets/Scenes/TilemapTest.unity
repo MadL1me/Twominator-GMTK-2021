@@ -21796,6 +21796,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SwitchButtonBlue
       objectReference: {fileID: 0}
+    - target: {fileID: 5646549287266681399, guid: 8ef8e3b3af839254794f40c222c9e55b, type: 3}
+      propertyPath: _isActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ef8e3b3af839254794f40c222c9e55b, type: 3}
 --- !u!4 &978865611 stripped
