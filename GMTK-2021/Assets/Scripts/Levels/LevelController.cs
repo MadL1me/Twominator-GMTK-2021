@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DefaultNamespace;
 using Levels;
 using LogicalElements;
 using UnityEngine;
@@ -11,7 +12,12 @@ public class LevelController : MonoBehaviour
     public PlayerController Player;
     public PlaybackDummy PlayerDummy;
     public GameLevel[] Levels;
+    
     [SerializeField] private LevelUiController _levelUi;
+    [SerializeField] private MusicProgressionController _musicProgressionController;
+    
+    [SerializeField] private AudioSource _rewindLevelSource;
+    [SerializeField] private AudioSource _rewindToBackSource;
     
     public int StartingLevel;
     public float TransitionDuration = 0.75F;
@@ -45,6 +51,9 @@ public class LevelController : MonoBehaviour
     
     public void ReloadLevel()
     {
+        _musicProgressionController.SetLoopPhase(_currentLevel);
+        _musicProgressionController.Play();
+        
         if (_pastLevel >= 0)
         {
             _levelUi.Enable();
@@ -77,10 +86,16 @@ public class LevelController : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Backspace) && HasPastLevel && !_isTransitioning)
+        {
+            _rewindToBackSource.Play();
             TransitionToPrevLevel();
-        
+        }
+
         if (Input.GetKeyDown(KeyCode.R) && !_isTransitioning)
+        {
+            _rewindLevelSource.Play();
             ReloadLevel();
+        }
         
         #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.F5))

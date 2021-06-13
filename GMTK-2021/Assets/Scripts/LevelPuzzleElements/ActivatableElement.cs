@@ -31,6 +31,9 @@ namespace LogicalElements
         [SerializeField] protected TilemapRenderer _inactiveTilemap;
         [SerializeField] protected bool _isActive;
         
+        [SerializeField] private AudioSource _activateAudioSource;
+        [SerializeField] private AudioSource _deactivateAudioSource;
+        
         public void SetState(ActivatableElementState state)
         {
             IsActive = state.IsActive;
@@ -68,6 +71,9 @@ namespace LogicalElements
 
             _activeTilemap.enabled = true;
             _inactiveTilemap.enabled = false;
+            
+            _deactivateAudioSource?.Stop();
+            _activateAudioSource?.Play();
         }
 
         public virtual void Deactivate(bool fireEvent = true)
@@ -78,6 +84,9 @@ namespace LogicalElements
             
             _activeTilemap.enabled = false;
             _inactiveTilemap.enabled = true;
+            
+            _activateAudioSource?.Stop();
+            _deactivateAudioSource?.Play();
         }
     }
 }

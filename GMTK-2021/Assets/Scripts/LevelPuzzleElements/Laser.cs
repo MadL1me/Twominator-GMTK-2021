@@ -9,6 +9,8 @@ namespace LogicalElements
     {
         [SerializeField] private Transform _laserInitiator;
         [SerializeField] private Transform _laserSprite;
+     
+        [SerializeField] private AudioSource _laserAmbientSource;
         
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -29,6 +31,7 @@ namespace LogicalElements
             }
             else
             {
+                _laserAmbientSource.Stop();
                 _laserSprite.gameObject.SetActive(false);
             }
         }
