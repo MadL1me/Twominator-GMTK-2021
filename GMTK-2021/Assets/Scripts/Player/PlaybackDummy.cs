@@ -29,7 +29,9 @@ public class PlaybackDummy : MonoBehaviour
         }
         
         gameObject.SetActive(true);
-        GetComponent<Rigidbody2D>().simulated = true;
+        var rb = GetComponent<Rigidbody2D>();
+        rb.simulated = true;
+        rb.velocity = Vector2.zero;
         LevelController.PastLevel.AssignObjectAndSpawnAtStart(gameObject);
         RewindDummy();
         _spawned = true;

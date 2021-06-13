@@ -75,7 +75,9 @@ public class LevelController : MonoBehaviour
         PlayerDummy.RespawnDummy();
         
         Player.gameObject.SetActive(true);
-        Player.GetComponent<Rigidbody2D>().simulated = true;
+        var rb = Player.GetComponent<Rigidbody2D>();
+        rb.simulated = true;
+        rb.velocity = Vector2.zero;
 
         IsDummyCompleted = false;
         IsPlayerCompleted = false;
@@ -145,6 +147,9 @@ public class LevelController : MonoBehaviour
 
         while (Time.timeSinceLevelLoad - animStart < 0.75F)
         {
+            RewindEffect.Strength = Mathf.Clamp((Time.timeSinceLevelLoad - animStart) / 0.1F, 0F, 1F) -
+                                    Mathf.Clamp((Time.timeSinceLevelLoad - animStart - 0.65F) / 0.1F, 0F, 1F);
+            
             Player.transform.localPosition = Vector3.Lerp(playerPos, 
                 CurrentLevel.PlayerStart.transform.localPosition, (Time.timeSinceLevelLoad - animStart) / 0.75F);
 
@@ -189,6 +194,7 @@ public class LevelController : MonoBehaviour
         if (playEffect)
         {
             RewindEffect.Intensity = 1F;
+            RewindEffect.Strength = 1F;
             RewindEffect.enabled = true;
         }
 
@@ -226,6 +232,9 @@ public class LevelController : MonoBehaviour
                         RewindEffect.Intensity = 
                             1F + Mathf.Clamp((Time.timeSinceLevelLoad - animStart) / (transitionDuration * 0.1F) * 2F, 0F, 2F)
                             - Mathf.Clamp((Time.timeSinceLevelLoad - animStart - 0.1F) / (transitionDuration * 0.1F) * 2F, 0F, 2F);
+                        
+                        RewindEffect.Strength = 1F - Mathf.Clamp(
+                            (Time.timeSinceLevelLoad - animStart - (transitionDuration - transitionDuration * 0.1F)) / (transitionDuration * 0.1F), 0F, 1F);
                     }
                     
                     pastLevel.transform.position =

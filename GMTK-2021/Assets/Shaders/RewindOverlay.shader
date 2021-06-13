@@ -39,6 +39,7 @@ Shader "Hidden/RewindOverlay"
 
             sampler2D _MainTex;
             float _Intensity;
+            float _Strength;
             float _Aspect;
 
             float rand(float3 co)
@@ -48,6 +49,7 @@ Shader "Hidden/RewindOverlay"
 
             fixed4 frag (v2f i) : SV_Target
             {
+                fixed4 origColor = tex2D(_MainTex, i.uv);
                 float2 uvr = (i.uv - 0.5) * (1 - distance(i.uv, float2(0.5, 0.5)) * 0.2 * min(1, _Intensity)) + 0.5;
                 fixed4 col = tex2D(_MainTex, uvr);
                 fixed intn = (col.r + col.g + col.b) / 3.0;
@@ -56,7 +58,7 @@ Shader "Hidden/RewindOverlay"
                 col = fixed4(intn, intn, intn, 1.0);
                 col *= 1.0 + rand(_Time.xyz + floor(i.uv.xy * float2(288 / _Aspect, 288)).xyx) * max(0, 1.0 - _Intensity) * 0.4;
                 
-                return col;
+                return lerp(origColor, col, _Strength);
             }
             ENDCG
         }

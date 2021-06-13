@@ -7,6 +7,7 @@ public class PostEffect : MonoBehaviour
 {
     public Material PostMaterial;
     public float Intensity = 1F;
+    public float Strength = 1F;
 
     private void OnRenderImage(RenderTexture src, RenderTexture dest)
     {
@@ -14,6 +15,7 @@ public class PostEffect : MonoBehaviour
         PostMaterial.SetInt("_Height", Screen.height);
         PostMaterial.SetFloat("_Aspect", Screen.height / (float)Screen.width);
         PostMaterial.SetFloat("_Intensity", Intensity);
+        PostMaterial.SetFloat("_Strength", Strength);
         Graphics.Blit(src, dest, PostMaterial);
     }
 }
