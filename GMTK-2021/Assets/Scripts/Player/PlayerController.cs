@@ -13,7 +13,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameLevel _levelAttachedToPlayer;
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _playerSpeed;
-
+    [SerializeField] private AudioSource _playerLaserDeathSource;
+    
     private SpriteRenderer _sprite;
     private Animator _anim;
     private Rigidbody2D _rigidbody;
@@ -187,6 +188,7 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
+        _playerLaserDeathSource.Play();
         _levelController.ReloadLevel();
     }
 }
