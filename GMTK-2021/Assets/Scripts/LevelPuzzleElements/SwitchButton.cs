@@ -33,17 +33,24 @@ namespace LogicalElements
 
         protected virtual void Update()
         {
-            if (PersistentButton && _isTouched)
+            if (PersistentButton)
             {
-                if (!IsActive)
+                if (!_isTouched)
                     return;
 
                 if (_touching.JustPressedUse)
                     Switch();
             }
-            else if (_touching != null)
+            else if (!PersistentButton)
             {
-                if (_touching.JustPressedUse || _touching.JustUnpressedUse || (IsActive && !_isTouched))
+                if (!_isTouched)
+                {
+                    if (IsActive)
+                        Switch();
+                    return;
+                }
+
+                if (_touching.JustPressedUse || _touching.JustUnpressedUse)
                     Switch();
             }
         }
