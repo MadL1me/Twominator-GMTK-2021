@@ -10,7 +10,15 @@ namespace LogicalElements
         
         private int _objectsOnButton = 0;
         private Rigidbody2D _dummy;
-        
+
+        public override void SetState(ActivatableElementState state)
+        {
+            base.SetState(state);
+
+            _objectsOnButton = 0;
+            _dummy = null;
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             print("fucking trigger");

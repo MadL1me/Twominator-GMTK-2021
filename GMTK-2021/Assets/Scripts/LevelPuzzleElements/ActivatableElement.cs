@@ -34,7 +34,7 @@ namespace LogicalElements
         [SerializeField] private AudioSource _activateAudioSource;
         [SerializeField] private AudioSource _deactivateAudioSource;
         
-        public void SetState(ActivatableElementState state)
+        public virtual void SetState(ActivatableElementState state)
         {
             IsActive = state.IsActive;
                         
