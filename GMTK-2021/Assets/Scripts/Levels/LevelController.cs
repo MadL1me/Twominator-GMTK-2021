@@ -9,6 +9,7 @@ using UnityEngine;
 
 public class LevelController : MonoBehaviour
 {
+    public PostEffect RewindEffect;
     public PlayerController Player;
     public PlaybackDummy PlayerDummy;
     public GameLevel[] Levels;
@@ -41,6 +42,8 @@ public class LevelController : MonoBehaviour
         #if UNITY_EDITOR
         Application.targetFrameRate = 0;
         #endif
+
+        RewindEffect = RewindEffect.GetComponents<PostEffect>()[1];
     }
 
     private void Start()
@@ -94,7 +97,8 @@ public class LevelController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) && !_isTransitioning)
         {
             _rewindLevelSource.Play();
-            ReloadLevel();
+            Player.GetComponent<Rigidbody2D>().simulated = false;
+            StartCoroutine(PlayRewindAnimation());
         }
         
         #if UNITY_EDITOR
@@ -126,6 +130,34 @@ public class LevelController : MonoBehaviour
         IsDummyCompleted = false;
         IsPlayerCompleted = false;
         StartCoroutine(PlayTransitionAnimation(levelId, skipAnim));
+    }
+
+    private IEnumerator PlayRewindAnimation()
+    {
+        var animStart = Time.timeSinceLevelLoad;
+
+        RewindEffect.Intensity = 0.4F;
+        RewindEffect.enabled = true;
+
+        var playerPos = Player.transform.localPosition;
+        var dummyPos = PlayerDummy.transform.localPosition;
+
+        while (Time.timeSinceLevelLoad - animStart < 0.75F)
+        {
+            Player.transform.localPosition = Vector3.Lerp(playerPos, 
+                CurrentLevel.PlayerStart.transform.localPosition, (Time.timeSinceLevelLoad - animStart) / 0.75F);
+
+            if (HasPastLevel)
+            {
+                PlayerDummy.transform.localPosition = Vector3.Lerp(dummyPos,
+                    PastLevel.PlayerStart.transform.localPosition, (Time.timeSinceLevelLoad - animStart) / 0.75F);
+            }
+
+            yield return null;
+        }
+
+        RewindEffect.enabled = false;
+        ReloadLevel();
     }
 
     private IEnumerator PlayTransitionAnimation(int nextLevelId, bool skipAnim)
