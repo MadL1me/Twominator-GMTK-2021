@@ -36685,7 +36685,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PostMaterial: {fileID: 2100000, guid: 23f82aab039549041a11adf47a718fd1, type: 2}
   Intensity: 1
-  Strength: 1
+  Strength: 0
 --- !u!1001 &1704381030
 PrefabInstance:
   m_ObjectHideFlags: 0
