@@ -47,10 +47,10 @@ Shader "Hidden/TimestopOverlay"
                 fixed intn = (col.r + col.g + col.b) / 3;
 
                 fixed4 col2 = col;
-                if ((_Intensity > 0 && i.vertex.y > _Intensity) || (_Intensity < 0 && i.vertex.y < _Intensity))
-                    col2 = fixed4(intn, intn, intn, 1);
+                if (_Intensity > 0 && i.uv.y < 0.5 - 0.046875)
+                    col2 = fixed4(intn, intn * 1.1, intn * 1.1, 1);
                 
-                return lerp(col, col2, _Strength);
+                return lerp(col, col2, _Strength * 0.75);
             }
             ENDCG
         }
