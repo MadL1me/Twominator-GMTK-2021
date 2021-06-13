@@ -163,6 +163,51 @@ public class LevelController : MonoBehaviour
         _paradoxSource.Play();
         StartCoroutine(PlayParadoxAnimation());
     }
+
+    public void CauseDeath()
+    {
+        if (_isTransitioning)
+            return;
+
+        _isTransitioning = true;
+        Player.GetComponent<Rigidbody2D>().simulated = false;
+        _rewindLevelSource.Play();
+        StartCoroutine(PlayDeathAnimation());
+    }
+    
+    private IEnumerator PlayDeathAnimation()
+    {
+        _levelUi.Disable();
+        
+        var animStart = Time.timeSinceLevelLoad;
+        
+        RewindEffect.Intensity = 0.4F;
+        RewindEffect.enabled = true;
+
+        ParadoxText.text = "Dead";
+        ParadoxText.gameObject.SetActive(true);
+
+        while (Time.timeSinceLevelLoad - animStart < 2.5F)
+        {
+            RewindEffect.Intensity = 
+                1F + Mathf.Clamp((Time.timeSinceLevelLoad - animStart) / 0.2F * 2F, 0F, 2F)
+                - Mathf.Clamp((Time.timeSinceLevelLoad - animStart - 0.1F) / 0.2F * 2F, 0F, 2F) +
+                Mathf.Clamp((Time.timeSinceLevelLoad - animStart) / 2.5F * 3.5F, 0F, 3.5F);
+            
+            RewindEffect.Strength = 1F - Mathf.Clamp(
+                (Time.timeSinceLevelLoad - animStart - 2.3F) / 0.2F, 0F, 1F);
+
+            yield return null;
+        }
+        
+        ParadoxText.gameObject.SetActive(false);
+        
+        RewindEffect.enabled = false;
+
+        _isTransitioning = false;
+        
+        ReloadLevel();
+    }
     
     private IEnumerator PlayParadoxAnimation()
     {
@@ -175,6 +220,7 @@ public class LevelController : MonoBehaviour
 
         _glitchEffect.enabled = true;
         
+        ParadoxText.text = "PARADOX!";
         ParadoxText.gameObject.SetActive(true);
 
         while (Time.timeSinceLevelLoad - animStart < 2.5F)

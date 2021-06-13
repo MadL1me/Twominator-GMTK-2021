@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _playerSpeed;
 
     public bool JustPressedUse { get; set; }
+    public bool JustUnpressedUse { get; set; }
 
     private SpriteRenderer _sprite;
     private Animator _anim;
@@ -68,6 +69,9 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E))
                 _moveType |= 0b1000;
+
+            if (Input.GetKeyUp(KeyCode.E))
+                _moveType |= 0b10000;
         }
 
         if (Input.GetKeyDown(KeyCode.Q) && IsControllable)
@@ -147,6 +151,9 @@ public class PlayerController : MonoBehaviour
         
         if ((_moveType & 0b1000) == 0b1000)
             Use();
+        
+        if ((_moveType & 0b10000) == 0b10000)
+            UseEnd();
 
         _moveType = 0;
         
@@ -196,6 +203,12 @@ public class PlayerController : MonoBehaviour
         
         _captureCmds[(int) PlayerCommands.Use] = true;
     }
+    
+    public void UseEnd()
+    {
+        JustUnpressedUse = true;
+        _captureCmds[(int) PlayerCommands.UseEnd] = true;
+    }
 
     public void PlayCommand(PlayerCommand command)
     {
@@ -226,6 +239,6 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
-        _levelController.ReloadLevel();
+        _levelController.CauseDeath();
     }
 }

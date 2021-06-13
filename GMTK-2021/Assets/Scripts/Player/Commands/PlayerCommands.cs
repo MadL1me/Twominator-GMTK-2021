@@ -5,7 +5,8 @@
         MoveLeft,
         MoveRight,
         Jump,
-        Use
+        Use,
+        UseEnd
     }
 
     public struct PlayerCommand
