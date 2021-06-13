@@ -50,6 +50,9 @@ public class LevelController : MonoBehaviour
     {
         TransitionToLevel(StartingLevel, true);
         _levelUi.InitLevelUi();
+        
+        Player.ReassignToLevel(CurrentLevel);
+        PlayerDummy.Player.ReassignToLevel(CurrentLevel);
     }
 
     public void Timelock()
