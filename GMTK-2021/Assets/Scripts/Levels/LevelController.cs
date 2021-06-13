@@ -16,7 +16,7 @@ public class LevelController : MonoBehaviour
     
     [SerializeField] private LevelUiController _levelUi;
     [SerializeField] private MusicProgressionController _musicProgressionController;
-    
+
     [SerializeField] private AudioSource _rewindLevelSource;
     [SerializeField] private AudioSource _rewindToBackSource;
     
@@ -179,8 +179,9 @@ public class LevelController : MonoBehaviour
 
     private IEnumerator PlayTransitionAnimation(int nextLevelId, bool skipAnim, bool playEffect, float transitionDuration = 0F)
     {
+        _levelUi.Disable();
+        
         var animStart = Time.timeSinceLevelLoad;
-
         var returnBack = nextLevelId == _pastLevel;
 
         if (transitionDuration == 0F)
