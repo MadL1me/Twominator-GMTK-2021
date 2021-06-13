@@ -36,7 +36,6 @@ namespace LogicalElements
         
         public void SetState(ActivatableElementState state)
         {
-            print("SET FUCKIG STATE!");
             IsActive = state.IsActive;
                         
             if (IsActive)
@@ -60,14 +59,11 @@ namespace LogicalElements
             else
                 Activate(playSound);
             
-            print("SWITCH!");
             OnSwitch?.Invoke(ColorEnum);
         }
         
         public virtual void Activate(bool playSound = true)
         {
-            print($"Activate at object: {gameObject.name}");
-            
             IsActive = true;
 
             _activeTilemap.enabled = true;
@@ -75,7 +71,6 @@ namespace LogicalElements
 
             if (playSound)
             {
-                print("Play fucking sound activate");
                 _deactivateAudioSource?.Stop();
                 _activateAudioSource?.Play();   
             }
@@ -83,8 +78,6 @@ namespace LogicalElements
 
         public virtual void Deactivate(bool playSound = true)
         {
-            print($"Deactivate at object: {gameObject.name}");
-            
             IsActive = false;
             
             _activeTilemap.enabled = false;
@@ -92,7 +85,6 @@ namespace LogicalElements
 
             if (playSound)
             {
-                print("Play fucking sound deactivate");
                 _activateAudioSource?.Stop();
                 _deactivateAudioSource?.Play();   
             }
