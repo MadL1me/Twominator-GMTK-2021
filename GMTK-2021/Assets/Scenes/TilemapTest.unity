@@ -28754,6 +28754,8 @@ GameObject:
   - component: {fileID: 1697413809}
   - component: {fileID: 1697413808}
   - component: {fileID: 1697413807}
+  - component: {fileID: 1697413810}
+  - component: {fileID: 1697413811}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -28805,8 +28807,8 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
+  m_HDR: 0
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -28826,6 +28828,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1697413810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697413806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9af967d070802545af9867e935735a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PostMaterial: {fileID: 2100000, guid: 8fdc7a96e438a264db50613dfc3de8cd, type: 2}
+  Intensity: 1
+--- !u!114 &1697413811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697413806}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9af967d070802545af9867e935735a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PostMaterial: {fileID: 2100000, guid: 40fe46e324c42ea4c847b3b6cb08ab59, type: 2}
+  Intensity: 1
 --- !u!1 &1736609060
 GameObject:
   m_ObjectHideFlags: 0

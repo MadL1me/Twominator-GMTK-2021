@@ -16,6 +16,7 @@ public class LevelController : MonoBehaviour
     public int StartingLevel;
     public float TransitionDuration = 0.75F;
     
+    public bool HasProgressedAtLeastOnce { get; private set; }
     public bool IsDummyCompleted { get; set; }
     public bool IsPlayerCompleted { get; set; }
 
@@ -229,5 +230,8 @@ public class LevelController : MonoBehaviour
 
         ReloadLevel();
         _isTransitioning = false;
+
+        if (!skipAnim)
+            HasProgressedAtLeastOnce = true;
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Player;
 using UnityEngine;
 
 public class Portal : MonoBehaviour
@@ -24,6 +25,7 @@ public class Portal : MonoBehaviour
             (!LevelController.IsPlayerCompleted || !LevelController.IsDummyCompleted))
             return;
         
+        LevelController.CurrentLevel.Timeline.SaveCommand(PlayerCommands.MoveRight); // bug work around
         LevelController.Player.gameObject.SetActive(false);
         LevelController.PlayerDummy.gameObject.SetActive(false);
 
