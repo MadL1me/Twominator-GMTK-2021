@@ -7,10 +7,11 @@ namespace LogicalElements
     [RequireComponent(typeof(Collider2D))]
     public class SwitchButton : ActivatorElement
     {
-        private bool _isTouched;
-        private PlayerController _touching;
+        protected bool _isActivated;
+        protected bool _isTouched;
+        protected PlayerController _touching;
         
-        private void OnTriggerEnter2D(Collider2D other)
+        protected void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.CompareTag("Player"))
                 return;
@@ -19,7 +20,7 @@ namespace LogicalElements
             _touching = other.GetComponent<PlayerController>();
         }
 
-        private void OnTriggerExit2D(Collider2D other)
+        protected void OnTriggerExit2D(Collider2D other)
         {
             if (!other.CompareTag("Player"))
                 return;
@@ -27,12 +28,17 @@ namespace LogicalElements
             _isTouched = false;
         }
 
-        private void Update()
+        protected virtual void Update()
         {
-            if (!_isTouched || !_touching.JustPressedUse)
+            if (!_isTouched)
+                return;
+
+            if (_isActivated)
                 return;
             
-            print("TRIGGER");
+            if (_touching.JustPressedUse)
+                _isActivated = true;
+            
             Switch();
         }
     }
