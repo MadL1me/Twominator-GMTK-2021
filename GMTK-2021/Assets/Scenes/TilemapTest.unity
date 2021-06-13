@@ -8901,7 +8901,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelController: {fileID: 1861214576}
   _levelAttachedToPlayer: {fileID: 1919545311}
-  _jumpForce: 9.5
+  _jumpForce: 11.5
   _playerSpeed: 5
 --- !u!50 &343259909
 Rigidbody2D:
