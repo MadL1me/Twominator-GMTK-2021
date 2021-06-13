@@ -16,6 +16,6 @@ public class TitleAnimation : MonoBehaviour
 
     private void Update()
     {
-        _rect.position = new Vector3(_startPos.x, _startPos.y + Mathf.Cos(Mathf.PI * Time.timeSinceLevelLoad) * 0.1F);
+        _rect.position = new Vector3(_startPos.x, _startPos.y + Mathf.Abs(Mathf.Cos(Mathf.PI * Time.timeSinceLevelLoad * 2F)) * 0.1F);
     }
 }
