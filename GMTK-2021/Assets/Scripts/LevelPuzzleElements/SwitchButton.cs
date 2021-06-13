@@ -38,6 +38,9 @@ namespace LogicalElements
                 if (!_isTouched)
                     return;
 
+                if (IsActive)
+                    return;
+
                 if (_touching.JustPressedUse)
                     Switch();
             }
