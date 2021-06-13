@@ -11,6 +11,8 @@ namespace LogicalElements
         
         protected bool _isTouched;
         protected PlayerController _touching;
+
+        public bool IsPressed { get; set; }
         
         protected void OnTriggerEnter2D(Collider2D other)
         {

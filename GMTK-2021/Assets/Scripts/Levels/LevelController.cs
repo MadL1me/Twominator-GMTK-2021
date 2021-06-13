@@ -5,6 +5,7 @@ using System.Linq;
 using DefaultNamespace;
 using Levels;
 using LogicalElements;
+using Ui;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +23,7 @@ public class LevelController : MonoBehaviour
     [SerializeField] private AudioSource _rewindLevelSource;
     [SerializeField] private AudioSource _rewindToBackSource;
     [SerializeField] private AudioSource _paradoxSource;
+    [SerializeField] private TimelockUi _timelockUi;
     
     public int StartingLevel;
     public float TransitionDuration = 0.75F;
@@ -71,8 +73,13 @@ public class LevelController : MonoBehaviour
     {
         if (_pastLevel >= 0)
         {
-            PastLevel.Timeline.IsTimelocked = !PastLevel.Timeline.IsTimelocked;
+            var timeLocked = !PastLevel.Timeline.IsTimelocked;
+            PastLevel.Timeline.IsTimelocked = timeLocked;
             PlayerDummy.Timelock();
+            if (timeLocked)
+                _timelockUi.TimelockOn();
+            else 
+                _timelockUi.TimelockOff();
         }
     }
     

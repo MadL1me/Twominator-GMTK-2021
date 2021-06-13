@@ -997,11 +997,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _colorEnum: {fileID: 11400000, guid: c14f8bcc50a37a94da9c6d538b3fee99, type: 2}
-  _activeTilemap: {fileID: 1607985514}
-  _inactiveTilemap: {fileID: 2040217333}
+  _activeTilemap: {fileID: 2040217333}
+  _inactiveTilemap: {fileID: 1607985514}
   _isActive: 1
   _activateAudioSource: {fileID: 2428219197904178296}
   _deactivateAudioSource: {fileID: 1803965339946591733}
+  PersistentButton: 1
 --- !u!58 &5179917017216041375
 CircleCollider2D:
   m_ObjectHideFlags: 0

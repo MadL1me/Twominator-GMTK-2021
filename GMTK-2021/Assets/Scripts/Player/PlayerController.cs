@@ -9,6 +9,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private AudioSource _playerJumpSource;
+    [SerializeField] private AudioSource _playerDeathSource;   
+    
     [SerializeField] private LevelController _levelController;
     [SerializeField] private GameLevel _levelAttachedToPlayer;
     [SerializeField] private float _jumpForce;
@@ -195,6 +198,8 @@ public class PlayerController : MonoBehaviour
         _captureCmds[(int) PlayerCommands.Jump] = true;
         _isOnGround = false;
         _ignoreNextStay = true;
+        
+        _playerJumpSource.Play();
     }
 
     public void Use()
