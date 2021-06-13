@@ -4,7 +4,8 @@ using UnityEngine;
 namespace Levels
 {
     public class LevelUiController : MonoBehaviour
-    { 
+    {
+        [SerializeField] private Canvas _uiCanvas;
         [SerializeField] private RemainingTimelineTimeUi _timelineTimeUi;
 
         public void InitLevelUi()
@@ -14,12 +15,12 @@ namespace Levels
 
         public void Enable()
         {
-            _timelineTimeUi.Enable();
+            _uiCanvas.enabled = true;
         }
 
         public void Disable()
         {
-            _timelineTimeUi.Disable();
+            _uiCanvas.enabled = false;
         }
         
         public void OnNextLevelStart(GameLevel lastLevel, GameLevel nextLevel)
