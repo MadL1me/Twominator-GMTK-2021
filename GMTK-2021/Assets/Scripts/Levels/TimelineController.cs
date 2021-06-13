@@ -9,6 +9,9 @@ namespace Levels
     {
         public int CurrentTick;
         public int LastValidTick;
+        
+        public bool IsTimelocked { get; set; }
+        
         private List<PlayerCommand> _commands = new List<PlayerCommand>();
         private int _curId;
 
@@ -41,6 +44,9 @@ namespace Levels
 
         public void AdvanceTick()
         {
+            if (IsTimelocked)
+                return;
+            
             CurrentTick++;
         }
         

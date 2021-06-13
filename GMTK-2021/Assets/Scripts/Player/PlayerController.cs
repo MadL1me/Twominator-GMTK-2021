@@ -70,6 +70,11 @@ public class PlayerController : MonoBehaviour
                 _moveType |= 0b1000;
         }
 
+        if (Input.GetKeyDown(KeyCode.Q) && IsControllable)
+        {
+            Timelock();
+        }
+
         if (_isMoveFrame)
         {
             _sprite.flipX = _lastDirLeft;
@@ -82,6 +87,12 @@ public class PlayerController : MonoBehaviour
         }
 
         _anim.SetBool("IsOffGround", !_isOnGround);
+    }
+
+    private void Timelock()
+    {
+        print("TimeLock");
+        _levelController.Timelock();
     }
 
     private void OnCollisionStay2D(Collision2D other)

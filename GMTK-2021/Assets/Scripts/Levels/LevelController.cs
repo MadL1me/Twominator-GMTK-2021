@@ -51,6 +51,15 @@ public class LevelController : MonoBehaviour
         TransitionToLevel(StartingLevel, true);
         _levelUi.InitLevelUi();
     }
+
+    public void Timelock()
+    {
+        if (_pastLevel >= 0)
+        {
+            PastLevel.Timeline.IsTimelocked = !PastLevel.Timeline.IsTimelocked;
+            PlayerDummy.Timelock();
+        }
+    }
     
     public void ReloadLevel()
     {
@@ -112,7 +121,8 @@ public class LevelController : MonoBehaviour
             TransitionToPrevLevel();
         #endif
                 
-        _levelUi.UpdateUi(CurrentLevel.Timeline.CurrentTick);
+        if (PastLevel != null)
+            _levelUi.UpdateUi(PastLevel.Timeline.CurrentTick);
     }
 
     public void TransitionToNextLevel()
