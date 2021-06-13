@@ -191,7 +191,7 @@ public class PlayerController : MonoBehaviour
     {
         JustPressedUse = true;
         
-        if (!_levelController.HasPastLevel && !_levelController.HasProgressedAtLeastOnce)
+        if (false && !_levelController.HasPastLevel && !_levelController.HasProgressedAtLeastOnce)
             _letUseFrameBeProcessed = true;
         
         _captureCmds[(int) PlayerCommands.Use] = true;
