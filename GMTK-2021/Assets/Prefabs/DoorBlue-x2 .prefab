@@ -43,7 +43,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c6e8fce0a7ce1d3489a9ba45c9c09432, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -729,7 +729,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf23a6754d34b29a76d0682240e77e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colorEnum: {fileID: 11400000, guid: c14f8bcc50a37a94da9c6d538b3fee99, type: 2}
+  _colorEnum: {fileID: 11400000, guid: a6dc67e42e3a8fc42981a909a935e401, type: 2}
   _activeTilemap: {fileID: 3297225340617318025}
   _inactiveTilemap: {fileID: 3297225339722585664}
   _isActive: 1
@@ -836,7 +836,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 676ba80cf6a48744787b7a252a58cbe6, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

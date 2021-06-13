@@ -36,6 +36,7 @@ namespace LogicalElements
         
         public void SetState(ActivatableElementState state)
         {
+            print("SET FUCKIG STATE!");
             IsActive = state.IsActive;
                         
             if (IsActive)
@@ -52,18 +53,18 @@ namespace LogicalElements
             };
         }
         
-        public virtual void Switch(bool fireEvent = true)
+        public virtual void Switch(bool playSound = true)
         {
             if (IsActive)
-                Deactivate(false);
+                Deactivate(playSound);
             else
-                Activate(false);
+                Activate(playSound);
             
-            if (fireEvent)
-                OnSwitch?.Invoke(ColorEnum);
+            print("SWITCH!");
+            OnSwitch?.Invoke(ColorEnum);
         }
         
-        public virtual void Activate(bool fireEvent = true)
+        public virtual void Activate(bool playSound = true)
         {
             print($"Activate at object: {gameObject.name}");
             
@@ -71,12 +72,16 @@ namespace LogicalElements
 
             _activeTilemap.enabled = true;
             _inactiveTilemap.enabled = false;
-            
-            _deactivateAudioSource?.Stop();
-            _activateAudioSource?.Play();
+
+            if (playSound)
+            {
+                print("Play fucking sound activate");
+                _deactivateAudioSource?.Stop();
+                _activateAudioSource?.Play();   
+            }
         }
 
-        public virtual void Deactivate(bool fireEvent = true)
+        public virtual void Deactivate(bool playSound = true)
         {
             print($"Deactivate at object: {gameObject.name}");
             
@@ -84,9 +89,13 @@ namespace LogicalElements
             
             _activeTilemap.enabled = false;
             _inactiveTilemap.enabled = true;
-            
-            _activateAudioSource?.Stop();
-            _deactivateAudioSource?.Play();
+
+            if (playSound)
+            {
+                print("Play fucking sound deactivate");
+                _activateAudioSource?.Stop();
+                _deactivateAudioSource?.Play();   
+            }
         }
     }
 }

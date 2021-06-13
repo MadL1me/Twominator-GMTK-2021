@@ -9,15 +9,15 @@ namespace LogicalElements
     {
         [SerializeField] private Collider2D _doorCollider;
         
-        public override void Activate(bool fireEvent = true)
+        public override void Activate(bool playSound = true)
         {
-            base.Activate(fireEvent);
+            base.Activate(playSound);
             _doorCollider.enabled = true;
         }
         
-        public override void Deactivate(bool fireEvent = true)
+        public override void Deactivate(bool playSound = true)
         {
-            base.Deactivate(fireEvent);
+            base.Deactivate(playSound);
             _doorCollider.enabled = false;
         }
     }

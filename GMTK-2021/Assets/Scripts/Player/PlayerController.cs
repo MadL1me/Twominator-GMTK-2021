@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _playerSpeed;
 
-    public bool JustPressedUse { get; private set; }
+    public bool JustPressedUse { get; set; }
 
     private SpriteRenderer _sprite;
     private Animator _anim;
