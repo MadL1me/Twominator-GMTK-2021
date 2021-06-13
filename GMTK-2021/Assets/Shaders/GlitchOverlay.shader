@@ -38,6 +38,7 @@ Shader "Hidden/GlitchOverlay"
             }
 
             sampler2D _MainTex;
+            float _Intensity;
 
             float rand(float3 co)
              {
@@ -49,7 +50,7 @@ Shader "Hidden/GlitchOverlay"
                 float2 uvr = i.uv;
                 float timeGap = floor(_Time.x * 2400);
                 
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < _Intensity * 10; j++)
                 {
                     float width = rand(timeGap + j);
                     float height = rand(timeGap + j + 0.5);

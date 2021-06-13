@@ -77,9 +77,8 @@ public class PlaybackDummy : MonoBehaviour
         
         foreach (var cmd in LevelController.PastLevel.Timeline.GetPlaybackForCurrentTickAndAdvance())
             _controller.PlayCommand(cmd);
-        
-        if (LevelController.PastLevel.Timeline.HasEndedPlayback && 
-            LevelController.IsPlayerCompleted && !LevelController.IsDummyCompleted)
-            LevelController.ReloadLevel();
+
+        if (LevelController.PastLevel.Timeline.HasEndedPlayback && !LevelController.IsDummyCompleted)
+            LevelController.CauseParadox();
     }
 }

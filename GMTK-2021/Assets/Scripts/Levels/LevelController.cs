@@ -6,6 +6,7 @@ using DefaultNamespace;
 using Levels;
 using LogicalElements;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelController : MonoBehaviour
 {
@@ -13,12 +14,14 @@ public class LevelController : MonoBehaviour
     public PlayerController Player;
     public PlaybackDummy PlayerDummy;
     public GameLevel[] Levels;
+    public Text ParadoxText;
     
     [SerializeField] private LevelUiController _levelUi;
     [SerializeField] private MusicProgressionController _musicProgressionController;
 
     [SerializeField] private AudioSource _rewindLevelSource;
     [SerializeField] private AudioSource _rewindToBackSource;
+    [SerializeField] private AudioSource _paradoxSource;
     
     public int StartingLevel;
     public float TransitionDuration = 0.75F;
@@ -30,6 +33,7 @@ public class LevelController : MonoBehaviour
     private int _currentLevel = -1;
     private int _pastLevel = -1;
     private bool _isTransitioning;
+    private PostEffect _glitchEffect;
 
     public bool HasPastLevel => _pastLevel != -1;
     public GameLevel CurrentLevel => _currentLevel < Levels.Length ? Levels[_currentLevel] : null;
@@ -44,6 +48,7 @@ public class LevelController : MonoBehaviour
         #endif
 
         RewindEffect = RewindEffect.GetComponents<PostEffect>()[1];
+        _glitchEffect = RewindEffect.GetComponents<PostEffect>()[2];
     }
 
     private void Start()
@@ -143,6 +148,55 @@ public class LevelController : MonoBehaviour
         IsDummyCompleted = false;
         IsPlayerCompleted = false;
         StartCoroutine(PlayTransitionAnimation(levelId, skipAnim, playEffect, playEffect ? 1F : 0F));
+    }
+
+    public void CauseParadox()
+    {
+        if (_isTransitioning)
+            return;
+
+        _isTransitioning = true;
+        Player.GetComponent<Rigidbody2D>().simulated = false;
+        _paradoxSource.Play();
+        StartCoroutine(PlayParadoxAnimation());
+    }
+    
+    private IEnumerator PlayParadoxAnimation()
+    {
+        _levelUi.Disable();
+        
+        var animStart = Time.timeSinceLevelLoad;
+        
+        RewindEffect.Intensity = 0.4F;
+        RewindEffect.enabled = true;
+
+        _glitchEffect.enabled = true;
+        
+        ParadoxText.gameObject.SetActive(true);
+
+        while (Time.timeSinceLevelLoad - animStart < 2.5F)
+        {
+            RewindEffect.Intensity = 
+                1F + Mathf.Clamp((Time.timeSinceLevelLoad - animStart) / 0.2F * 2F, 0F, 2F)
+                - Mathf.Clamp((Time.timeSinceLevelLoad - animStart - 0.1F) / 0.2F * 2F, 0F, 2F) +
+                Mathf.Clamp((Time.timeSinceLevelLoad - animStart) / 2.5F * 3.5F, 0F, 3.5F);
+
+            _glitchEffect.Intensity = Mathf.Clamp(Time.timeSinceLevelLoad - animStart - 1.5F, 0F, 1F);
+            
+            RewindEffect.Strength = 1F - Mathf.Clamp(
+                (Time.timeSinceLevelLoad - animStart - 2.3F) / 0.2F, 0F, 1F);
+
+            yield return null;
+        }
+        
+        ParadoxText.gameObject.SetActive(false);
+        
+        _glitchEffect.enabled = false;
+        RewindEffect.enabled = false;
+
+        _isTransitioning = false;
+        
+        ReloadLevel();
     }
 
     private IEnumerator PlayRewindAnimation()
