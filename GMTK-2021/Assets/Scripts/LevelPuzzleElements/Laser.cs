@@ -14,8 +14,6 @@ namespace LogicalElements
         
         private void OnTriggerEnter2D(Collider2D other)
         {
-            print("LASER TRIGGER OMFG");
-            
             if (IsActive && other.gameObject.tag.Equals("Player"))
             {
                 other.gameObject.GetComponent<PlayerController>().Die();
@@ -40,9 +38,7 @@ namespace LogicalElements
         {
             var endPoint = Physics2D.Raycast(_laserInitiator.transform.position, 
                 _laserInitiator.up, 50);
-            
-            print(endPoint.point);
-            
+
             if (endPoint)
             {
                 CalculateLaserSpriteProps(endPoint);
