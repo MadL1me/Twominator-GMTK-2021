@@ -31,10 +31,7 @@ namespace LogicalElements
 
         protected virtual void Update()
         {
-            if (!_isTouched)
-                return;
-
-            if (PersistentButton)
+            if (PersistentButton && _isTouched)
             {
                 if (!IsActive)
                     return;
@@ -42,7 +39,7 @@ namespace LogicalElements
                 if (_touching.JustPressedUse)
                     Switch();
             }
-            else
+            else if (_touching != null)
             {
                 if (_touching.JustPressedUse || _touching.JustUnpressedUse || (IsActive && !_isTouched))
                     Switch();
