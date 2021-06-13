@@ -37,14 +37,14 @@ namespace LogicalElements
             }
         }
 
-        public override void Activate(bool fireEvent = true)
+        public override void Activate(bool playSound = true)
         {
-            base.Activate(fireEvent);
+            base.Activate(playSound);
         }
         
-        public override void Deactivate(bool fireEvent = true)
+        public override void Deactivate(bool playSound = true)
         {
-            base.Deactivate(fireEvent);
+            base.Deactivate(playSound);
         }
     }
 }
