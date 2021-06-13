@@ -13,8 +13,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameLevel _levelAttachedToPlayer;
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _playerSpeed;
-    [SerializeField] private AudioSource _playerLaserDeathSource;
-    
+
+    public bool JustPressedUse { get; private set; }
+
     private SpriteRenderer _sprite;
     private Animator _anim;
     private Rigidbody2D _rigidbody;
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private bool _isMoveFrame;
     private bool _lastDirLeft;
     private int _moveType;
+    private bool _letUseFrameBeProcessed;
 
     public bool IsControllable { get; set; } = true;
 
@@ -34,6 +36,7 @@ public class PlayerController : MonoBehaviour
         _sprite = GetComponent<SpriteRenderer>();
         _anim = GetComponent<Animator>();
         _captureCmds = new bool[Enum.GetValues(typeof(PlayerCommands)).Length];
+        print("cmds: " + _captureCmds.Length);
     }
 
     public void ReassignToLevel(GameLevel level)
@@ -43,6 +46,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (!_letUseFrameBeProcessed)
+            JustPressedUse = false;
+
+        _letUseFrameBeProcessed = false;
+        
         if (IsControllable)
         {
             if (Input.GetKey(KeyCode.A))
@@ -57,6 +65,9 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space))
                 _moveType |= 0b100;
+
+            if (Input.GetKeyDown(KeyCode.E))
+                _moveType |= 0b1000;
         }
 
         if (_isMoveFrame)
@@ -122,6 +133,9 @@ public class PlayerController : MonoBehaviour
         
         if ((_moveType & 0b100) == 0b100 && _isOnGround)
             Jump();
+        
+        if ((_moveType & 0b1000) == 0b1000)
+            Use();
 
         _moveType = 0;
         
@@ -162,6 +176,16 @@ public class PlayerController : MonoBehaviour
         _ignoreNextStay = true;
     }
 
+    public void Use()
+    {
+        JustPressedUse = true;
+        
+        if (!_levelController.HasPastLevel)
+            _letUseFrameBeProcessed = true;
+        
+        _captureCmds[(int) PlayerCommands.Use] = true;
+    }
+
     public void PlayCommand(PlayerCommand command)
     {
         switch (command.Type)
@@ -174,6 +198,9 @@ public class PlayerController : MonoBehaviour
                 break;
             case PlayerCommands.Jump:
                 Jump();
+                break;
+            case PlayerCommands.Use:
+                Use();
                 break;
         }
     }
@@ -188,7 +215,6 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
-        _playerLaserDeathSource.Play();
         _levelController.ReloadLevel();
     }
 }

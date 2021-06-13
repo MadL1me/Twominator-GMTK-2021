@@ -29,7 +29,6 @@ namespace Ui
             if (!_canvas.enabled)
                 return;
             
-            print(time);
             _timeSlider.value = time;
         }
     }
