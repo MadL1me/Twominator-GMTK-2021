@@ -24,8 +24,13 @@ public class Portal : MonoBehaviour
         if (LevelController.HasPastLevel &&
             (!LevelController.IsPlayerCompleted || !LevelController.IsDummyCompleted))
             return;
-        
-        LevelController.CurrentLevel.Timeline.SaveCommand(PlayerCommands.MoveRight); // bug work around
+
+        for (var i = 0; i < 50; i++)
+        {
+            LevelController.CurrentLevel.Timeline.SaveCommand(PlayerCommands.MoveRight); // bug work around
+            LevelController.CurrentLevel.Timeline.AdvanceTick();
+        }
+
         LevelController.Player.gameObject.SetActive(false);
         LevelController.PlayerDummy.gameObject.SetActive(false);
 
