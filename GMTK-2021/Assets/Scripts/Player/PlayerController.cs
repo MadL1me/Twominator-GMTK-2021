@@ -48,7 +48,10 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         if (!_letUseFrameBeProcessed)
+        {
             JustPressedUse = false;
+            JustUnpressedUse = false;
+        }
 
         _letUseFrameBeProcessed = false;
         

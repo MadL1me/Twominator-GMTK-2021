@@ -7,7 +7,8 @@ namespace LogicalElements
     [RequireComponent(typeof(Collider2D))]
     public class SwitchButton : ActivatorElement
     {
-        protected bool _isActivated;
+        public bool PersistentButton = true;
+        
         protected bool _isTouched;
         protected PlayerController _touching;
         
@@ -33,13 +34,19 @@ namespace LogicalElements
             if (!_isTouched)
                 return;
 
-            if (_isActivated)
-                return;
-            
-            if (_touching.JustPressedUse)
-                _isActivated = true;
-            
-            Switch();
+            if (PersistentButton)
+            {
+                if (!IsActive)
+                    return;
+
+                if (_touching.JustPressedUse)
+                    Switch();
+            }
+            else
+            {
+                if (_touching.JustPressedUse || _touching.JustUnpressedUse)
+                    Switch();
+            }
         }
     }
 }

@@ -53,6 +53,7 @@ MonoBehaviour:
   _isActive: 1
   _activateAudioSource: {fileID: 6283243578897056584}
   _deactivateAudioSource: {fileID: 4825215441024527365}
+  PersistentButton: 0
 --- !u!58 &2116711921887641182
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -6480,81 +6480,7 @@ CompositeCollider2D:
   m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 239177773}
-    m_ColliderPaths:
-    - - X: 160000000
-        Y: 30000000
-      - X: -40000000
-        Y: 30000000
-      - X: -40000000
-        Y: 20000000
-      - X: 160000000
-        Y: 20000000
-    - - X: -110000000
-        Y: 30000000
-      - X: -120000000
-        Y: 30000000
-      - X: -120000000
-        Y: 0
-      - X: -110000000
-        Y: 0
-    - - X: -140000000
-        Y: 30000000
-      - X: -150000000
-        Y: 30000000
-      - X: -150000000
-        Y: 0
-      - X: -140000000
-        Y: 0
-    - - X: 70000000
-        Y: -30000000
-      - X: 160000000
-        Y: -30000000
-      - X: 160000000
-        Y: -20000000
-      - X: 80000000
-        Y: -20000000
-      - X: 80000000
-        Y: 0
-      - X: 60000000
-        Y: 0
-      - X: 60000000
-        Y: -30000000
-      - X: -20000000
-        Y: -30000000
-      - X: -20000000
-        Y: 0
-      - X: -60000000
-        Y: 0
-      - X: -60000000
-        Y: 10000000
-      - X: -70000000
-        Y: 10000000
-      - X: -70000000
-        Y: -30000000
-      - X: -160000000
-        Y: -30000000
-      - X: -160000000
-        Y: -40000000
-      - X: 70000000
-        Y: -40000000
-    - - X: 30000000
-        Y: 0
-      - X: 10000000
-        Y: 0
-      - X: 10000000
-        Y: -10000000
-      - X: 30000000
-        Y: -10000000
-    - - X: -60000000
-        Y: -30000000
-      - X: -60000000
-        Y: -10000000
-      - X: -40000000
-        Y: -10000000
-      - X: -40000000
-        Y: -30000000
+  m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
     - - {x: 15.999971, y: 2}
@@ -9782,7 +9708,25 @@ CompositeCollider2D:
   m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths: []
+  m_ColliderPaths:
+  - m_Collider: {fileID: 365482651}
+    m_ColliderPaths:
+    - - X: 160000000
+        Y: 20000000
+      - X: -160000000
+        Y: 20000000
+      - X: -160000000
+        Y: 10000000
+      - X: 160000000
+        Y: 10000000
+    - - X: 160000000
+        Y: -20000000
+      - X: -160000000
+        Y: -20000000
+      - X: -160000000
+        Y: -30000000
+      - X: 160000000
+        Y: -30000000
   m_CompositePaths:
     m_Paths:
     - - {x: 15.999971, y: 1}
@@ -17549,6 +17493,63 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 7}
   m_EdgeRadius: 0
+--- !u!1001 &789386075
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1533550334}
+    m_Modifications:
+    - target: {fileID: 8194711942994632068, guid: c5cd3fdda2e168d4d9c571c3440a9437, type: 3}
+      propertyPath: m_Name
+      value: DoorBlue-x3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194711942994632069, guid: c5cd3fdda2e168d4d9c571c3440a9437, type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194711942994632069, guid: c5cd3fdda2e168d4d9c571c3440a9437, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.392747
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194711942994632069, guid: c5cd3fdda2e168d4d9c571c3440a9437, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.9554243
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194711942994632069, guid: c5cd3fdda2e168d4d9c571c3440a9437, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 10.998249
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194711942994632069, guid: c5cd3fdda2e168d4d9c571c3440a9437, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194711942994632069, guid: c5cd3fdda2e168d4d9c571c3440a9437, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194711942994632069, guid: c5cd3fdda2e168d4d9c571c3440a9437, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194711942994632069, guid: c5cd3fdda2e168d4d9c571c3440a9437, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194711942994632069, guid: c5cd3fdda2e168d4d9c571c3440a9437, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194711942994632069, guid: c5cd3fdda2e168d4d9c571c3440a9437, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194711942994632069, guid: c5cd3fdda2e168d4d9c571c3440a9437, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c5cd3fdda2e168d4d9c571c3440a9437, type: 3}
 --- !u!1 &796540487
 GameObject:
   m_ObjectHideFlags: 0
@@ -20384,6 +20385,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 32.901375, y: 1.5682013}
   m_EdgeRadius: 0
+--- !u!4 &1051517979 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8194711942994632069, guid: c5cd3fdda2e168d4d9c571c3440a9437, type: 3}
+  m_PrefabInstance: {fileID: 789386075}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1056960472
 GameObject:
   m_ObjectHideFlags: 0
@@ -22470,7 +22476,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1136021147
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -28973,7 +28979,9 @@ CompositeCollider2D:
   m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths: []
+  m_ColliderPaths:
+  - m_Collider: {fileID: 1491334889}
+    m_ColliderPaths: []
   m_CompositePaths:
     m_Paths: []
   m_VertexDistance: 0.0005
@@ -29723,7 +29731,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &1533550332
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -29787,6 +29795,7 @@ Transform:
   - {fileID: 484186751}
   - {fileID: 1197638371}
   - {fileID: 580594056}
+  - {fileID: 1051517979}
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -32960,9 +32969,7 @@ CompositeCollider2D:
   m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 1756874585}
-    m_ColliderPaths: []
+  m_ColliderPaths: []
   m_CompositePaths:
     m_Paths: []
   m_VertexDistance: 0.0005
@@ -33735,7 +33742,7 @@ MonoBehaviour:
   Player: {fileID: 343259908}
   PlayerDummy: {fileID: 2067863609}
   Levels:
-  - {fileID: 770558956}
+  - {fileID: 1533550333}
   - {fileID: 1919545311}
   - {fileID: 88310157}
   - {fileID: 1183338917}
