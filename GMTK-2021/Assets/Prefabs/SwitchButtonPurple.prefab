@@ -960,7 +960,6 @@ GameObject:
   - component: {fileID: 5179917017216041372}
   - component: {fileID: 5179917017216041370}
   - component: {fileID: 5179917017216041375}
-  - component: {fileID: -1103684663106199409}
   m_Layer: 0
   m_Name: SwitchButtonPurple
   m_TagString: Untagged
@@ -1003,7 +1002,6 @@ MonoBehaviour:
   _isActive: 1
   _activateAudioSource: {fileID: 2428219197904178296}
   _deactivateAudioSource: {fileID: 1803965339946591733}
-  _connectedActivatableElements: []
 --- !u!58 &5179917017216041375
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1020,16 +1018,3 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.5}
   serializedVersion: 2
   m_Radius: 1
---- !u!114 &-1103684663106199409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5179917017216041371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 398c90304e9d686418b7dd777c6dcff8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Text: Press E
