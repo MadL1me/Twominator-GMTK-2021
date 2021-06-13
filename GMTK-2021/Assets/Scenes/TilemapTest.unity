@@ -9779,7 +9779,7 @@ MonoBehaviour:
   _levelController: {fileID: 1861214576}
   _levelAttachedToPlayer: {fileID: 1919545311}
   _jumpForce: 11.5
-  _playerSpeed: 10
+  _playerSpeed: 6
 --- !u!50 &343259909
 Rigidbody2D:
   serializedVersion: 4

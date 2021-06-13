@@ -7,6 +7,7 @@ using Levels;
 using LogicalElements;
 using Ui;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LevelController : MonoBehaviour
@@ -166,6 +167,9 @@ public class LevelController : MonoBehaviour
 
     public void TransitionToLevel(int levelId, bool skipAnim = false, bool playEffect = false)
     {
+        if (levelId == Levels.Length)
+            SceneManager.LoadScene(3);
+        
         _isTransitioning = true;
         IsDummyCompleted = false;
         IsPlayerCompleted = false;
